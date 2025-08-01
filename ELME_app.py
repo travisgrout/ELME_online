@@ -147,15 +147,21 @@ elif st.session_state.step == 'county_selection':
 # --- Step 3: ZIP Code Selection ---
 elif st.session_state.step == 'zip_selection':
     st.header("Step 3: Select ZIP Code(s)")
+    st.info("Coastal ZIP codes are selected by default.") # Added info box
     
     filtered_df = selection_df[selection_df['cty_name'].isin(st.session_state.selections['counties'])]
     zip_df = filtered_df[['zip', 'city', 'cty_name', 'coastalZip']].copy().dropna().drop_duplicates()
     zip_df.rename(columns={'zip': 'ZIP', 'city': 'City', 'cty_name': 'County', 'coastalZip': 'Coastal'}, inplace=True)
     zip_df['Coastal'] = zip_df['Coastal'].apply(lambda x: 'Yes' if x == 1 else 'No')
-    zip_df['Select'] = False
+    
+    # Set the 'Select' column to True where the 'Coastal' column is 'Yes'
+    zip_df['Select'] = zip_df['Coastal'] == 'Yes'
+
+    # Sort the dataframe to show selected (coastal) zips first
+    zip_df_sorted = zip_df.sort_values(by=['Select', 'ZIP'], ascending=[False, True])
 
     edited_df = st.data_editor(
-        zip_df[['Select', 'ZIP', 'City', 'County', 'Coastal']],
+        zip_df_sorted[['Select', 'ZIP', 'City', 'County', 'Coastal']],
         hide_index=True,
         use_container_width=True
     )
