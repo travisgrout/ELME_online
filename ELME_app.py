@@ -48,47 +48,59 @@ EMPLOYMENT_MIDPOINTS = {
 }
 
 # --- Data Loading and Preparation ---
-
 # app.py
 
 @st.cache_data
 def load_and_prepare_data():
     """
     Loads, merges, and prepares the datasets for analysis from the 'Cleaned Census Inputs' folder.
-    - Loads zip-level and county-level data.
-    - Combines them into a single dataframe where county-level data is
-      identified with a special zip code of -99999.
+    This version is more robust and ensures columns are perfectly aligned before concatenation
+    to prevent InvalidIndexError.
     """
     try:
-        # Correctly path to the CSV files inside the subfolder
-        zip_df = pd.read_csv("Cleaned Census Inputs/cleaned_zip_industries.csv", dtype={'zip': str, 'fips': str, 'naics': str})
-        county_df = pd.read_csv("Cleaned Census Inputs/cleaned_cbp_counties.csv", dtype={'fipstate': str, 'fipscty': str, 'naics': str})
+        # Define file paths
+        zip_path = "Cleaned Census Inputs/cleaned_zip_industries.csv"
+        county_path = "Cleaned Census Inputs/cleaned_cbp_counties.csv"
+        
+        # Load data with specific string types to preserve leading zeros
+        zip_df = pd.read_csv(zip_path, dtype={'zip': str, 'fips': str, 'naics': str})
+        county_df = pd.read_csv(county_path, dtype={'fipstate': str, 'fipscty': str, 'naics': str})
+
     except FileNotFoundError as e:
-        st.error(f"Error loading data: {e}. Make sure the 'Cleaned Census Inputs' folder with your CSV files is in your GitHub repository.")
+        st.error(f"Error loading data: {e}. Make sure the 'Cleaned Census Inputs' folder and your CSV files are correctly named and located in your repository.")
         st.stop()
 
-    # Prepare county data: create FIPS code and add sentinel zip value
+    # --- Prepare County Data ---
+    # Create the full FIPS code
     county_df['fipscty'] = county_df['fipscty'].str.zfill(3)
     county_df['fips'] = county_df['fipstate'].str.zfill(2) + county_df['fipscty']
-    county_df['zip'] = -99999 # Sentinel value to identify county total rows
+    # Add sentinel zip value to identify these as county-level totals
+    county_df['zip'] = -99999
+    # Standardize the 'coastal' column name if it exists
+    if 'ALLCoastalCounty' in county_df.columns:
+        county_df.rename(columns={'ALLCoastalCounty': 'coastalCounty'}, inplace=True)
 
-    # Align columns between the two dataframes for a clean merge
-    common_cols = ['fips', 'naics', 'est'] + SIZE_COLS
-    county_df_aligned = county_df.rename(columns={'ALLCoastalCounty': 'coastalCounty'}) # Align column name
+    # --- Prepare Zip Data ---
+    # Standardize the 'coastal' column name if it exists, to match the county data
+    if 'ALLCoastalCounty' in zip_df.columns:
+        zip_df.rename(columns={'ALLCoastalCounty': 'coastalCounty'}, inplace=True)
+        
+    # --- Align and Combine Dataframes ---
+    # Define the single, canonical list of columns that the final dataframe should have.
+    # This is the key to preventing the InvalidIndexError.
+    final_columns = [
+        'fips', 'naics', 'est', 'state', 'cty_name', 'zip', 'city', 'coastalCounty'
+    ] + SIZE_COLS
+
+    # Reindex both dataframes to this structure. This adds any missing columns (with NaN)
+    # and ensures the column order is identical.
+    zip_df_aligned = zip_df.reindex(columns=final_columns)
+    county_df_aligned = county_df.reindex(columns=final_columns)
     
-    # Ensure all required columns exist, adding them with null values if they don't
-    for col in common_cols + ['state', 'cty_name', 'coastalCounty', 'city']:
-        if col not in zip_df.columns: zip_df[col] = np.nan
-        if col not in county_df_aligned.columns: county_df_aligned[col] = np.nan
-
-    # Select and reorder columns to match before concatenation
-    zip_df_aligned = zip_df[common_cols + ['state', 'cty_name', 'zip', 'city', 'coastalCounty']]
-    county_df_aligned = county_df_aligned[common_cols + ['state', 'cty_name', 'zip', 'city', 'coastalCounty']]
-
-    # Combine zip and county data into one dataframe
+    # Concatenate the now perfectly aligned dataframes
     combined_df = pd.concat([zip_df_aligned, county_df_aligned], ignore_index=True)
 
-    # Convert relevant columns to numeric types for calculations
+    # Convert data columns to numeric types for calculations, coercing errors to NaN
     for col in ['est'] + SIZE_COLS:
         combined_df[col] = pd.to_numeric(combined_df[col], errors='coerce')
 
@@ -240,3 +252,4 @@ if st.button("Generate Employment Estimates", type="primary"):
 
                 total_employment = employment_summary['Estimated Employment'].sum()
                 st.metric(label="Total Estimated Employment for Selection", value=f"{total_employment:,.0f}")
+
