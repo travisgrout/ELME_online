@@ -1,0 +1,1 @@
+This script allows users to estimate the size and composition of their local marine economy. Users enter zip codes and NAICS codes of interest in the first tab. Based on that input, the app  automatically populates a series of tables
