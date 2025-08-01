@@ -1,0 +1,527 @@
+﻿fips,county_name,statecode,state,STATE_FIPS,County_FIPS,region,czcty,fema,watershed,shore,shore100,Warehousing_TR_60,Minerals_LDB,urbaninfluence,NonParticipating,ruralurban,Warehousing_NAICS
+1003,Baldwin,1,AL,1,3,Gulf of Mexico,1,1,1,1,0,1,0,5,0,3,4
+1097,Mobile,1,AL,1,97,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+2013,Aleutians East Borough,2,AK,2,13,North Pacific,1,1,1,1,1,1,0,0,0,9,6
+2016,Aleutians West Census Area,2,AK,2,16,North Pacific,1,1,1,1,1,1,0,11,0,9,6
+2020,Anchorage Municipality,2,AK,2,20,North Pacific,1,1,1,1,0,1,1,2,0,2,6
+2050,Bethel Census Area,2,AK,2,50,North Pacific,1,1,1,1,1,1,0,11,0,7,6
+2060,Bristol Bay Borough,2,AK,2,60,North Pacific,1,1,1,1,1,1,0,12,0,9,6
+2063,Chugach Census Area,2,AK,2,63,North Pacific,1,1,1,1,1,1,0,7,0,9,6
+2070,Dillingham Census Area,2,AK,2,70,North Pacific,1,1,1,1,1,1,0,12,0,9,6
+2100,Haines Borough,2,AK,2,100,North Pacific,1,1,1,1,1,1,0,10,0,9,6
+2105,Hoonah-Angoon Census Area,2,AK,2,105,North Pacific,1,1,1,1,1,1,0,10,0,9,6
+2110,Juneau City and Borough,2,AK,2,110,North Pacific,1,1,1,1,1,1,0,8,0,5,6
+2122,Kenai Peninsula Borough,2,AK,2,122,North Pacific,1,1,1,1,1,1,0,11,0,7,6
+2130,Ketchikan Gateway Borough,2,AK,2,130,North Pacific,1,1,1,1,1,1,0,8,0,7,6
+2150,Kodiak Island Borough,2,AK,2,150,North Pacific,1,1,1,1,1,1,0,8,0,7,6
+2164,Lake and Peninsula Borough,2,AK,2,164,North Pacific,1,1,1,1,1,1,0,12,0,9,6
+2170,Matanuska-Susitna Borough,2,AK,2,170,North Pacific,1,1,1,1,0,1,0,2,0,2,6
+2180,Nome Census Area,2,AK,2,180,North Pacific,1,1,1,1,1,1,0,11,0,9,6
+2185,North Slope Borough,2,AK,2,185,North Pacific,1,1,1,1,1,1,0,11,0,9,6
+2188,Northwest Arctic Borough,2,AK,2,188,North Pacific,1,1,1,1,0,1,0,11,0,9,6
+2195,Petersburg Borough,2,AK,2,195,North Pacific,1,1,1,1,1,1,0,11,0,9,6
+2198,Prince of Wales-Hyder Census Area,2,AK,2,198,North Pacific,1,1,1,1,1,1,0,12,0,9,6
+2201,Prince of Wales-Outer Ketchika,2,AK,2,201,North Pacific,1,1,1,1,1,1,0,12,0,9,6
+2220,Sitka City and Borough,2,AK,2,220,North Pacific,1,1,1,1,1,1,0,11,0,7,6
+2232,Skagway-Hoonah-Angoon,2,AK,2,232,North Pacific,1,1,1,1,1,1,0,10,0,9,6
+2261,Valdez-Cordova Census Area,2,AK,2,261,North Pacific,1,1,1,1,0,1,0,11,0,9,6
+2270,Wade Hampton Census Area,2,AK,2,270,North Pacific,1,1,1,1,0,1,0,12,0,9,6
+2158,Kusilvak Census Area,2,AK,2,158,North Pacific,1,1,1,1,0,1,0,12,0,9,6
+2230,Skagway Municipality,2,AK,2,230,North Pacific,1,1,1,0,1,1,0,12,0,9,6
+2275,Wrangell City and Borough,2,AK,2,275,North Pacific,1,1,1,1,0,1,0,11,0,9,6
+2282,Yakutat City and Borough,2,AK,2,282,North Pacific,1,1,1,1,0,1,0,12,0,9,6
+6001,Alameda,6,CA,6,1,West,1,1,1,1,0,1,0,1,0,1,6
+6013,Contra Costa,6,CA,6,13,West,1,1,1,1,0,1,0,1,0,1,6
+6015,Del Norte,6,CA,6,15,West,1,1,1,1,0,1,0,8,0,7,6
+6023,Humboldt,6,CA,6,23,West,1,1,1,1,0,1,0,8,0,5,4
+6037,Los Angeles,6,CA,6,37,West,1,1,1,1,0,1,0,1,0,1,6
+6041,Marin,6,CA,6,41,West,1,1,1,1,0,1,0,1,0,1,6
+6045,Mendocino,6,CA,6,45,West,1,1,1,1,0,1,0,5,0,4,6
+6053,Monterey,6,CA,6,53,West,1,1,1,1,0,1,0,2,0,2,6
+6055,Napa,6,CA,6,55,West,1,1,1,0,0,0,0,2,0,3,6
+6059,Orange,6,CA,6,59,West,1,1,1,1,0,1,0,1,0,1,6
+6067,Sacramento,6,CA,6,67,West,1,0,1,0,0,0,0,1,0,1,6
+6073,San Diego,6,CA,6,73,West,1,1,1,1,0,1,0,1,0,1,6
+6075,San Francisco,6,CA,6,75,West,1,1,1,1,0,1,0,1,0,1,6
+6077,San Joaquin,6,CA,6,77,West,1,0,1,0,0,0,0,2,0,2,6
+6079,San Luis Obispo,6,CA,6,79,West,1,1,1,1,0,1,0,2,0,2,4
+6081,San Mateo,6,CA,6,81,West,1,1,1,1,0,1,0,1,0,1,6
+6083,Santa Barbara,6,CA,6,83,West,1,1,1,1,0,1,0,2,0,2,6
+6085,Santa Clara,6,CA,6,85,West,1,1,1,1,0,1,0,1,0,1,6
+6087,Santa Cruz,6,CA,6,87,West,1,1,1,1,0,1,0,2,0,2,6
+6095,Solano,6,CA,6,95,West,1,1,1,1,0,1,0,2,0,2,4
+6097,Sonoma,6,CA,6,97,West,1,1,1,1,0,1,0,2,0,2,6
+6111,Ventura,6,CA,6,111,West,1,1,1,1,0,1,0,2,0,2,6
+6113,Yolo,6,CA,6,113,West,1,0,1,0,0,0,0,1,0,1,6
+9001,Fairfield,9,CT,9,1,Northeast,1,1,1,1,0,1,0,2,0,2,6
+9007,Middlesex,9,CT,9,7,Northeast,1,1,1,1,0,1,0,1,0,1,6
+9009,New Haven,9,CT,9,9,Northeast,1,1,1,1,0,1,0,2,0,2,6
+9011,New London,9,CT,9,11,Northeast,1,1,1,1,0,1,0,2,0,2,6
+9120,Greater Bridgeport Planning Region,9,CT,9,120,Northeast,1,1,1,1,0,1,0,0,0,2,6
+9190,Western Connecticut Planning Region,9,CT,9,190,Northeast,1,1,1,1,0,1,0,0,0,2,6
+9170,South Central Connecticut Planning Region,9,CT,9,170,Northeast,1,1,1,1,0,1,0,0,0,2,6
+9130,Lower Connecticut River Valley Planning Region,9,CT,9,130,Northeast,1,1,1,1,0,1,0,0,0,1,6
+9180,Southeastern Connecticut Planning Region,9,CT,9,180,Northeast,1,1,1,1,0,1,0,0,0,2,6
+10001,Kent,10,DE,10,1,Mid-Atlantic,1,1,1,1,0,1,0,2,0,3,6
+10003,New Castle,10,DE,10,3,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+10005,Sussex,10,DE,10,5,Mid-Atlantic,1,1,1,1,0,1,0,5,0,4,6
+12005,Bay,12,FL,12,5,Gulf of Mexico,1,1,1,1,0,1,0,2,0,3,6
+12009,Brevard,12,FL,12,9,Southeast,1,1,1,1,0,1,0,2,0,2,6
+12011,Broward,12,FL,12,11,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12015,Charlotte,12,FL,12,15,Gulf of Mexico,1,1,1,1,0,1,0,2,0,3,6
+12017,Citrus,12,FL,12,17,Gulf of Mexico,1,1,1,1,0,1,0,5,0,3,6
+12019,Clay,12,FL,12,19,Southeast,1,1,1,1,0,0,0,1,0,1,6
+12021,Collier,12,FL,12,21,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12029,Dixie,12,FL,12,29,Gulf of Mexico,1,1,1,1,1,1,0,7,0,8,6
+12031,Duval,12,FL,12,31,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12033,Escambia,12,FL,12,33,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12035,Flagler,12,FL,12,35,Southeast,1,1,1,1,0,1,0,5,0,2,6
+12037,Franklin,12,FL,12,37,Gulf of Mexico,1,1,1,1,1,1,0,7,0,8,6
+12045,Gulf,12,FL,12,45,Gulf of Mexico,1,1,1,1,1,1,0,6,0,8,6
+12053,Hernando,12,FL,12,53,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+12057,Hillsborough,12,FL,12,57,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+12061,Indian River,12,FL,12,61,Southeast,1,1,1,1,0,1,0,2,0,3,6
+12065,Jefferson,12,FL,12,65,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12069,Lake,12,FL,12,69,Gulf of Mexico,1,0,1,0,0,0,0,1,0,1,4
+12071,Lee,12,FL,12,71,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12073,Leon,12,FL,12,73,Gulf of Mexico,1,0,1,0,0,0,0,2,0,2,6
+12075,Levy,12,FL,12,75,Gulf of Mexico,1,1,1,1,0,1,0,7,0,2,6
+12077,Liberty,12,FL,12,77,Gulf of Mexico,1,1,1,0,0,0,0,7,0,8,6
+12081,Manatee,12,FL,12,81,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,4
+12085,Martin,12,FL,12,85,Southeast,1,1,1,1,0,1,0,2,0,2,6
+12086,Miami-Dade,12,FL,12,86,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12087,Monroe,12,FL,12,87,Gulf of Mexico,1,1,1,1,1,1,0,3,0,4,6
+12089,Nassau,12,FL,12,89,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12091,Okaloosa,12,FL,12,91,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12095,Orange,12,FL,12,95,Southeast,1,0,1,0,0,0,0,1,0,1,6
+12099,Palm Beach,12,FL,12,99,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12101,Pasco,12,FL,12,101,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+12103,Pinellas,12,FL,12,103,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+12105,Polk,12,FL,12,105,Gulf of Mexico,1,0,1,0,0,0,0,2,0,2,6
+12107,Putnam,12,FL,12,107,Southeast,1,1,1,0,0,0,0,3,0,4,6
+12109,St. Johns,12,FL,12,109,Southeast,1,1,1,1,0,1,0,1,0,1,6
+12111,St. Lucie,12,FL,12,111,Southeast,1,1,1,1,0,1,0,2,0,2,6
+12113,Santa Rosa,12,FL,12,113,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12115,Sarasota,12,FL,12,115,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+12117,Seminole,12,FL,12,117,Southeast,1,0,1,0,0,0,0,1,0,1,4
+12123,Taylor,12,FL,12,123,Gulf of Mexico,1,1,1,1,0,1,0,6,0,6,6
+12127,Volusia,12,FL,12,127,Southeast,1,1,1,1,0,1,0,2,0,2,4
+12129,Wakulla,12,FL,12,129,Gulf of Mexico,1,1,1,1,1,1,0,2,0,2,6
+12131,Walton,12,FL,12,131,Gulf of Mexico,1,1,1,1,0,1,0,6,0,2,6
+13025,Brantley,13,GA,13,25,Southeast,1,1,1,0,0,0,0,2,0,3,6
+13029,Bryan,13,GA,13,29,Southeast,1,1,1,1,0,1,0,2,0,2,6
+13039,Camden,13,GA,13,39,Southeast,1,1,1,1,0,1,0,3,0,4,6
+13049,Charlton,13,GA,13,49,Southeast,1,1,1,0,0,0,0,4,0,8,6
+13051,Chatham,13,GA,13,51,Southeast,1,1,1,1,0,1,0,2,0,2,6
+13127,Glynn,13,GA,13,127,Southeast,1,1,1,1,1,1,0,2,0,3,6
+13179,Liberty,13,GA,13,179,Southeast,1,1,1,1,0,1,0,2,0,3,6
+13191,McIntosh,13,GA,13,191,Southeast,1,1,1,1,1,1,0,2,0,3,6
+13305,Wayne,13,GA,13,305,Southeast,1,1,1,0,0,0,0,5,0,6,6
+15001,Hawaii,15,HI,15,1,Pacific,1,1,1,1,1,1,0,8,0,5,6
+15003,Honolulu,15,HI,15,3,Pacific,1,1,1,1,1,1,0,2,0,1,6
+15005,Kalawao,15,HI,15,5,Pacific,1,1,1,1,1,1,0,8,0,3,6
+15007,Kauai,15,HI,15,7,Pacific,1,1,1,1,1,1,0,8,0,5,6
+15009,Maui,15,HI,15,9,Pacific,1,1,1,1,1,1,0,8,0,3,6
+15901,Maui and Kalawao,15,HI,15,901,Pacific,1,1,1,1,1,1,0,8,0,3,6
+17031,Cook,17,IL,17,31,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+17097,Lake,17,IL,17,97,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+18089,Lake,18,IN,18,89,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+18091,La Porte,18,IN,18,91,Great Lakes,1,1,1,1,0,1,0,2,0,3,4
+18127,Porter,18,IN,18,127,Great Lakes,1,1,1,1,0,1,0,1,0,1,4
+22019,Calcasieu,22,LA,22,19,Gulf of Mexico,1,1,1,0,0,0,0,2,0,2,6
+22023,Cameron,22,LA,22,23,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+22045,Iberia,22,LA,22,45,Gulf of Mexico,1,1,1,1,0,1,1,5,0,4,6
+22051,Jefferson,22,LA,22,51,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+22057,Lafourche,22,LA,22,57,Gulf of Mexico,1,1,1,1,0,1,0,2,0,3,6
+22063,Livingston,22,LA,22,63,Gulf of Mexico,1,1,1,0,0,0,0,2,0,2,6
+22071,Orleans,22,LA,22,71,Gulf of Mexico,1,1,1,1,0,1,1,1,0,1,6
+22075,Plaquemines,22,LA,22,75,Gulf of Mexico,1,1,1,1,1,1,0,1,0,1,6
+22087,St. Bernard,22,LA,22,87,Gulf of Mexico,1,1,1,1,1,1,0,1,0,1,6
+22089,St. Charles,22,LA,22,89,Gulf of Mexico,1,1,1,0,0,0,0,1,0,1,6
+22093,St. James,22,LA,22,93,Gulf of Mexico,1,1,1,0,0,0,0,4,0,1,6
+22095,St. John the Baptist,22,LA,22,95,Gulf of Mexico,1,1,1,0,0,0,0,1,0,1,6
+22099,St. Martin,22,LA,22,99,Gulf of Mexico,1,1,1,0,0,0,0,2,0,2,6
+22101,St. Mary,22,LA,22,101,Gulf of Mexico,1,1,1,1,0,1,0,5,0,4,6
+22103,St. Tammany,22,LA,22,103,Gulf of Mexico,1,1,1,1,0,1,0,1,0,2,6
+22105,Tangipahoa,22,LA,22,105,Gulf of Mexico,1,1,1,0,0,0,0,3,0,3,6
+22109,Terrebonne,22,LA,22,109,Gulf of Mexico,1,1,1,1,0,1,0,2,0,3,6
+22113,Vermilion,22,LA,22,113,Gulf of Mexico,1,1,1,1,0,1,0,5,0,2,6
+23005,Cumberland,23,ME,23,5,Northeast,1,1,1,1,0,1,0,0,0,2,6
+23009,Hancock,23,ME,23,9,Northeast,1,1,1,1,0,1,0,0,0,8,4
+23013,Knox,23,ME,23,13,Northeast,1,1,1,1,0,1,0,0,0,7,6
+23015,Lincoln,23,ME,23,15,Northeast,1,1,1,1,0,1,0,0,0,8,6
+23023,Sagadahoc,23,ME,23,23,Northeast,1,1,1,1,0,1,0,0,0,2,6
+23027,Waldo,23,ME,23,27,Northeast,1,1,1,1,0,1,0,0,0,8,6
+23029,Washington,23,ME,23,29,Northeast,1,1,1,1,0,1,0,0,0,9,6
+23031,York,23,ME,23,31,Northeast,1,1,1,1,0,1,0,0,0,2,4
+24003,Anne Arundel,24,MD,24,3,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+24005,Baltimore,24,MD,24,5,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+24009,Calvert,24,MD,24,9,Mid-Atlantic,1,1,1,1,0,1,0,1,0,3,6
+24011,Caroline,24,MD,24,11,Mid-Atlantic,1,1,1,0,0,0,0,4,0,6,6
+24015,Cecil,24,MD,24,15,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+24017,Charles,24,MD,24,17,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+24019,Dorchester,24,MD,24,19,Mid-Atlantic,1,1,1,1,0,1,0,5,0,6,4
+24025,Harford,24,MD,24,25,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+24029,Kent,24,MD,24,29,Mid-Atlantic,1,1,1,1,0,1,0,4,0,6,6
+24033,Prince Georges,24,MD,24,33,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+24035,Queen Annes,24,MD,24,35,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,4
+24037,St. Marys,24,MD,24,37,Mid-Atlantic,1,1,1,1,0,1,0,3,0,3,6
+24039,Somerset,24,MD,24,39,Mid-Atlantic,1,1,1,1,0,1,0,2,0,3,6
+24041,Talbot,24,MD,24,41,Mid-Atlantic,1,1,1,1,0,1,0,3,0,6,6
+24045,Wicomico,24,MD,24,45,Mid-Atlantic,1,1,1,1,0,1,0,2,0,3,4
+24047,Worcester,24,MD,24,47,Mid-Atlantic,1,1,1,1,0,1,0,5,0,4,6
+24510,Baltimore (city),24,MD,24,510,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+25001,Barnstable,25,MA,25,1,Northeast,1,1,1,1,1,1,0,2,1,3,6
+25005,Bristol,25,MA,25,5,Northeast,1,1,1,1,0,1,0,1,1,1,6
+25007,Dukes,25,MA,25,7,Northeast,1,1,1,1,1,1,0,12,1,7,6
+25009,Essex,25,MA,25,9,Northeast,1,1,1,1,0,1,0,1,1,1,6
+25017,Middlesex,25,MA,25,17,Northeast,1,1,1,0,0,0,0,1,1,1,6
+25019,Nantucket,25,MA,25,19,Northeast,1,1,1,1,1,1,0,11,1,7,6
+25021,Norfolk,25,MA,25,21,Northeast,1,1,1,1,0,1,0,1,1,1,4
+25023,Plymouth,25,MA,25,23,Northeast,1,1,1,1,0,1,0,1,1,1,6
+25025,Suffolk,25,MA,25,25,Northeast,1,1,1,1,0,1,0,1,1,1,6
+26001,Alcona,26,MI,26,1,Great Lakes,1,0,1,1,0,1,0,10,1,9,6
+26003,Alger,26,MI,26,3,Great Lakes,1,1,1,1,1,1,0,9,1,9,6
+26005,Allegan,26,MI,26,5,Great Lakes,1,1,1,1,0,1,0,5,1,4,6
+26007,Alpena,26,MI,26,7,Great Lakes,1,1,1,1,0,1,0,8,1,7,6
+26009,Antrim,26,MI,26,9,Great Lakes,1,1,1,1,0,1,0,10,1,8,6
+26011,Arenac,26,MI,26,11,Great Lakes,1,1,1,1,0,1,0,7,1,8,6
+26013,Baraga,26,MI,26,13,Great Lakes,1,1,1,1,0,1,0,10,1,9,6
+26017,Bay,26,MI,26,17,Great Lakes,1,1,1,1,0,1,0,2,1,3,6
+26019,Benzie,26,MI,26,19,Great Lakes,1,1,1,1,0,1,0,8,1,3,6
+26021,Berrien,26,MI,26,21,Great Lakes,1,1,1,1,0,1,0,2,1,3,6
+26029,Charlevoix,26,MI,26,29,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26031,Cheboygan,26,MI,26,31,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26033,Chippewa,26,MI,26,33,Great Lakes,1,1,1,1,0,1,0,8,1,7,6
+26041,Delta,26,MI,26,41,Great Lakes,1,1,1,1,1,1,0,8,1,5,6
+26047,Emmet,26,MI,26,47,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26053,Gogebic,26,MI,26,53,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26055,Grand Traverse,26,MI,26,55,Great Lakes,1,1,1,1,0,1,0,8,1,3,6
+26061,Houghton,26,MI,26,61,Great Lakes,1,1,1,1,0,1,0,8,1,5,6
+26063,Huron,26,MI,26,63,Great Lakes,1,1,1,1,0,1,0,11,1,9,6
+26069,Iosco,26,MI,26,69,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26083,Keweenaw,26,MI,26,83,Great Lakes,1,1,1,1,0,1,0,8,1,9,6
+26089,Leelanau,26,MI,26,89,Great Lakes,1,1,1,1,1,1,0,8,1,3,6
+26095,Luce,26,MI,26,95,Great Lakes,1,1,1,1,1,1,0,9,1,9,6
+26097,Mackinac,26,MI,26,97,Great Lakes,1,1,1,1,1,1,0,9,1,9,6
+26099,Macomb,26,MI,26,99,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+26101,Manistee,26,MI,26,101,Great Lakes,1,1,1,1,0,1,0,9,1,6,6
+26103,Marquette,26,MI,26,103,Great Lakes,1,1,1,1,0,1,0,8,1,5,6
+26105,Mason,26,MI,26,105,Great Lakes,1,1,1,1,0,1,0,11,1,7,6
+26109,Menominee,26,MI,26,109,Great Lakes,1,1,1,1,0,1,0,8,1,7,6
+26115,Monroe,26,MI,26,115,Great Lakes,1,1,1,1,0,1,0,2,1,3,4
+26121,Muskegon,26,MI,26,121,Great Lakes,1,1,1,1,0,1,0,2,1,3,4
+26127,Oceana,26,MI,26,127,Great Lakes,1,1,1,1,0,1,0,7,1,8,4
+26131,Ontonagon,26,MI,26,131,Great Lakes,1,1,1,1,0,1,0,10,1,9,6
+26139,Ottawa,26,MI,26,139,Great Lakes,1,1,1,1,0,1,0,2,1,1,6
+26141,Presque Isle,26,MI,26,141,Great Lakes,1,1,1,1,0,1,0,9,1,9,6
+26145,Saginaw,26,MI,26,145,Great Lakes,1,0,1,0,0,1,0,2,1,3,4
+26147,St. Clair,26,MI,26,147,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+26151,Sanilac,26,MI,26,151,Great Lakes,1,1,1,1,0,1,0,4,1,8,6
+26153,Schoolcraft,26,MI,26,153,Great Lakes,1,1,1,1,1,1,0,9,1,9,6
+26157,Tuscola,26,MI,26,157,Great Lakes,1,1,1,1,0,1,0,6,1,6,6
+26159,Van Buren,26,MI,26,159,Great Lakes,1,1,1,1,0,1,0,2,1,6,4
+26163,Wayne,26,MI,26,163,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+27031,Cook,27,MN,27,31,Great Lakes,1,1,1,1,0,1,0,12,0,9,6
+27075,Lake,27,MN,27,75,Great Lakes,1,1,1,1,0,1,0,6,0,8,6
+27137,St. Louis,27,MN,27,137,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+28045,Hancock,28,MS,28,45,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+28047,Harrison,28,MS,28,47,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+28059,Jackson,28,MS,28,59,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+33015,Rockingham,33,NH,33,15,Northeast,1,1,1,1,0,1,0,1,1,1,4
+33017,Strafford,33,NH,33,17,Northeast,1,1,1,0,0,0,0,1,1,1,4
+34001,Atlantic,34,NJ,34,1,Mid-Atlantic,1,1,1,1,0,1,0,2,0,2,4
+34003,Bergen,34,NJ,34,3,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34005,Burlington,34,NJ,34,5,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+34007,Camden,34,NJ,34,7,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34009,Cape May,34,NJ,34,9,Mid-Atlantic,1,1,1,1,0,1,0,2,0,2,6
+34011,Cumberland,34,NJ,34,11,Mid-Atlantic,1,1,1,1,0,1,0,2,0,3,6
+34013,Essex,34,NJ,34,13,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34015,Gloucester,34,NJ,34,15,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34017,Hudson,34,NJ,34,17,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34023,Middlesex,34,NJ,34,23,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34025,Monmouth,34,NJ,34,25,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34029,Ocean,34,NJ,34,29,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+34033,Salem,34,NJ,34,33,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,4
+34035,Somerset,34,NJ,34,35,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,4
+34039,Union,34,NJ,34,39,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+36001,Albany,36,NY,36,1,Mid-Atlantic,1,0,1,0,0,0,0,2,1,2,6
+36005,Bronx,36,NY,36,5,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+36011,Cayuga,36,NY,36,11,Great Lakes,1,1,1,1,0,0,0,5,1,4,4
+36013,Chautauqua,36,NY,36,13,Great Lakes,1,1,1,1,0,1,0,3,1,4,6
+36027,Dutchess,36,NY,36,27,Mid-Atlantic,1,1,1,0,0,0,0,2,1,2,4
+36029,Erie,36,NY,36,29,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+36045,Jefferson,36,NY,36,45,Great Lakes,1,1,1,1,0,1,0,5,1,3,6
+36047,Kings,36,NY,36,47,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+36055,Monroe,36,NY,36,55,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+36059,Nassau,36,NY,36,59,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+36061,New York,36,NY,36,61,Mid-Atlantic,1,1,1,1,1,1,0,1,1,1,6
+36063,Niagara,36,NY,36,63,Great Lakes,1,1,1,1,0,1,0,1,1,1,4
+36071,Orange,36,NY,36,71,Mid-Atlantic,1,1,1,0,0,0,0,2,1,2,6
+36073,Orleans,36,NY,36,73,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+36075,Oswego,36,NY,36,75,Great Lakes,1,1,1,1,0,1,0,2,1,2,4
+36079,Putnam,36,NY,36,79,Mid-Atlantic,1,1,1,0,0,0,0,1,1,1,6
+36081,Queens,36,NY,36,81,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+36085,Richmond,36,NY,36,85,Mid-Atlantic,1,1,1,1,1,1,0,1,1,1,6
+36087,Rockland,36,NY,36,87,Mid-Atlantic,1,1,1,0,0,0,0,1,1,1,4
+36089,St. Lawrence,36,NY,36,89,Great Lakes,1,0,1,0,0,0,0,8,1,4,6
+36103,Suffolk,36,NY,36,103,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+36111,Ulster,36,NY,36,111,Mid-Atlantic,1,1,1,0,0,1,0,2,1,3,4
+36117,Wayne,36,NY,36,117,Great Lakes,1,1,1,1,0,1,0,1,1,1,6
+36119,Westchester,36,NY,36,119,Mid-Atlantic,1,1,1,1,0,1,0,1,1,1,6
+37013,Beaufort,37,NC,37,13,Southeast,1,1,1,1,1,1,0,5,0,6,6
+37015,Bertie,37,NC,37,15,Southeast,1,1,1,1,0,1,0,12,0,9,6
+37019,Brunswick,37,NC,37,19,Southeast,1,1,1,1,0,1,0,2,0,2,6
+37029,Camden,37,NC,37,29,Southeast,1,1,1,1,0,1,0,3,0,1,6
+37031,Carteret,37,NC,37,31,Southeast,1,1,1,1,1,1,0,5,0,4,6
+37041,Chowan,37,NC,37,41,Southeast,1,1,1,1,0,1,0,9,0,8,6
+37049,Craven,37,NC,37,49,Southeast,1,1,1,1,0,1,0,8,0,4,6
+37053,Currituck,37,NC,37,53,Southeast,1,1,1,1,1,1,0,1,0,1,6
+37055,Dare,37,NC,37,55,Southeast,1,1,1,1,1,1,0,8,0,4,6
+37073,Gates,37,NC,37,73,Southeast,1,1,1,0,0,0,0,4,0,1,6
+37091,Hertford,37,NC,37,91,Southeast,1,1,1,0,0,0,0,11,0,8,6
+37095,Hyde,37,NC,37,95,Southeast,1,1,1,1,1,1,0,10,0,9,6
+37129,New Hanover,37,NC,37,129,Southeast,1,1,1,1,0,1,0,2,0,2,6
+37133,Onslow,37,NC,37,133,Southeast,1,1,1,1,0,1,0,2,0,3,6
+37137,Pamlico,37,NC,37,137,Southeast,1,1,1,1,1,1,0,8,0,9,6
+37139,Pasquotank,37,NC,37,139,Southeast,1,1,1,1,1,1,0,8,0,4,6
+37141,Pender,37,NC,37,141,Southeast,1,1,1,1,0,1,0,2,0,2,6
+37143,Perquimans,37,NC,37,143,Southeast,1,1,1,1,0,1,0,8,0,8,6
+37177,Tyrrell,37,NC,37,177,Southeast,1,1,1,1,1,1,0,10,0,9,6
+37187,Washington,37,NC,37,187,Southeast,1,1,1,1,1,1,0,9,0,9,6
+39007,Ashtabula,39,OH,39,7,Great Lakes,1,1,1,1,0,1,0,3,0,1,4
+39035,Cuyahoga,39,OH,39,35,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+39043,Erie,39,OH,39,43,Great Lakes,1,1,1,1,0,1,0,2,0,3,6
+39085,Lake,39,OH,39,85,Great Lakes,1,1,1,1,0,1,0,1,0,1,4
+39093,Lorain,39,OH,39,93,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+39095,Lucas,39,OH,39,95,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+39123,Ottawa,39,OH,39,123,Great Lakes,1,1,1,1,0,1,0,2,0,3,6
+39143,Sandusky,39,OH,39,143,Great Lakes,1,1,1,0,0,0,0,5,0,4,4
+39173,Wood,39,OH,39,173,Great Lakes,1,0,1,0,0,0,0,2,0,2,6
+41007,Clatsop,41,OR,41,7,West,1,1,1,1,0,1,0,3,0,4,6
+41009,Columbia,41,OR,41,9,West,1,0,1,1,0,1,0,1,0,1,6
+41011,Coos,41,OR,41,11,West,1,1,1,1,0,1,0,8,0,5,6
+41015,Curry,41,OR,41,15,West,1,1,1,1,0,1,0,8,0,7,6
+41019,Douglas,41,OR,41,19,West,1,1,1,1,0,1,0,5,0,4,6
+41039,Lane,41,OR,41,39,West,1,1,1,1,0,1,0,2,0,2,6
+41041,Lincoln,41,OR,41,41,West,1,1,1,1,0,1,0,6,0,5,6
+41051,Multnomah ,41,OR,41,51,West,0,0,0,1,0,1,0,0,0,1,6
+41057,Tillamook,41,OR,41,57,West,1,1,1,1,0,1,0,4,0,7,6
+42017,Bucks,42,PA,42,17,Mid-Atlantic,1,0,1,0,0,0,0,1,0,1,6
+42045,Delaware,42,PA,42,45,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,4
+42049,Erie,42,PA,42,49,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+42101,Philadelphia,42,PA,42,101,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+44001,Bristol,44,RI,44,1,Northeast,1,1,1,1,0,1,0,1,0,1,6
+44003,Kent,44,RI,44,3,Northeast,1,1,1,1,0,1,0,1,0,1,6
+44005,Newport,44,RI,44,5,Northeast,1,1,1,1,0,1,0,1,0,1,6
+44007,Providence,44,RI,44,7,Northeast,1,1,1,1,0,1,0,1,0,1,6
+44009,Washington,44,RI,44,9,Northeast,1,1,1,1,0,1,0,1,0,1,6
+45013,Beaufort,45,SC,45,13,Southeast,1,1,1,1,1,1,0,0,0,3,6
+45015,Berkeley,45,SC,45,15,Southeast,1,1,1,0,0,0,0,0,0,2,6
+45019,Charleston,45,SC,45,19,Southeast,1,1,1,1,0,1,0,0,0,2,6
+45029,Colleton,45,SC,45,29,Southeast,1,1,1,1,0,1,0,0,0,6,6
+45035,Dorchester,45,SC,45,35,Southeast,1,1,1,0,0,0,0,0,0,2,6
+45043,Georgetown,45,SC,45,43,Southeast,1,1,1,1,0,1,0,0,0,4,6
+45051,Horry,45,SC,45,51,Southeast,1,1,1,1,0,1,0,0,0,2,4
+45053,Jasper,45,SC,45,53,Southeast,1,1,1,1,0,1,0,0,0,3,6
+48007,Aransas,48,TX,48,7,Gulf of Mexico,1,1,1,1,0,1,1,2,0,2,6
+48039,Brazoria,48,TX,48,39,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+48057,Calhoun,48,TX,48,57,Gulf of Mexico,1,1,1,1,1,1,0,2,0,6,6
+48061,Cameron,48,TX,48,61,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+48071,Chambers,48,TX,48,71,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+48167,Galveston,48,TX,48,167,Gulf of Mexico,1,1,1,1,0,1,0,1,0,1,6
+48201,Harris,48,TX,48,201,Gulf of Mexico,1,1,1,1,0,1,1,1,0,1,6
+48239,Jackson,48,TX,48,239,Gulf of Mexico,1,1,1,1,0,1,0,6,0,6,6
+48245,Jefferson,48,TX,48,245,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+48261,Kenedy,48,TX,48,261,Gulf of Mexico,1,1,1,1,1,1,0,8,0,9,6
+48273,Kleberg,48,TX,48,273,Gulf of Mexico,1,1,1,1,1,1,0,5,0,4,6
+48321,Matagorda,48,TX,48,321,Gulf of Mexico,1,1,1,1,0,1,0,3,0,6,6
+48355,Nueces,48,TX,48,355,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+48361,Orange,48,TX,48,361,Gulf of Mexico,1,1,1,0,0,0,0,2,0,2,6
+48391,Refugio,48,TX,48,391,Gulf of Mexico,1,1,1,1,1,1,0,6,0,8,6
+48409,San Patricio,48,TX,48,409,Gulf of Mexico,1,1,1,1,0,1,0,2,0,2,6
+48469,Victoria,48,TX,48,469,Gulf of Mexico,1,1,1,1,0,1,0,2,0,3,4
+48489,Willacy,48,TX,48,489,Gulf of Mexico,1,1,1,1,0,1,0,5,0,6,4
+51001,Accomack,51,VA,51,1,Mid-Atlantic,1,1,1,1,1,1,0,9,0,9,6
+51013,Arlington,51,VA,51,13,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51033,Caroline,51,VA,51,33,Mid-Atlantic,1,1,1,0,0,0,0,1,0,8,6
+51036,Charles City,51,VA,51,36,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51041,Chesterfield,51,VA,51,41,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51057,Essex,51,VA,51,57,Mid-Atlantic,1,1,1,1,0,1,0,4,0,8,6
+51059,Fairfax,51,VA,51,59,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51073,Gloucester,51,VA,51,73,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51085,Hanover,51,VA,51,85,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51087,Henrico,51,VA,51,87,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51093,Isle of Wight,51,VA,51,93,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51095,James City,51,VA,51,95,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51097,King and Queen,51,VA,51,97,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51099,King George,51,VA,51,99,Mid-Atlantic,1,1,1,1,1,1,0,4,0,8,6
+51101,King William,51,VA,51,101,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51103,Lancaster,51,VA,51,103,Mid-Atlantic,1,1,1,1,1,1,0,12,0,9,6
+51115,Mathews,51,VA,51,115,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51119,Middlesex,51,VA,51,119,Mid-Atlantic,1,1,1,1,1,1,0,4,0,8,6
+51127,New Kent,51,VA,51,127,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51131,Northampton,51,VA,51,131,Mid-Atlantic,1,1,1,1,1,1,0,12,0,8,6
+51133,Northumberland,51,VA,51,133,Mid-Atlantic,1,1,1,1,1,1,0,12,0,9,6
+51149,Prince George,51,VA,51,149,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,4
+51153,Prince William,51,VA,51,153,Mid-Atlantic,1,1,1,0,0,1,0,1,0,1,4
+51159,Richmond,51,VA,51,159,Mid-Atlantic,1,1,1,1,1,1,0,12,0,9,6
+51177,Spotsylvania,51,VA,51,177,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,4
+51179,Stafford,51,VA,51,179,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51181,Surry,51,VA,51,181,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51193,Westmoreland,51,VA,51,193,Mid-Atlantic,1,1,1,1,1,1,0,11,0,8,6
+51199,York,51,VA,51,199,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51510,Alexandria (city),51,VA,51,510,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51550,Chesapeake (city),51,VA,51,550,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51650,Hampton (city),51,VA,51,650,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51670,Hopewell (city),51,VA,51,670,Mid-Atlantic,1,1,1,0,0,0,0,1,0,1,6
+51700,Newport News (city),51,VA,51,700,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51710,Norfolk (city),51,VA,51,710,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51735,Poquoson (city),51,VA,51,735,Mid-Atlantic,1,1,1,1,1,1,0,1,0,1,6
+51740,Portsmouth (city),51,VA,51,740,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51760,Richmond (city),51,VA,51,760,Mid-Atlantic,1,0,1,0,0,0,0,1,0,1,6
+51800,Suffolk,51,VA,51,800,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51810,Virginia Beach,51,VA,51,810,Mid-Atlantic,1,1,1,1,0,1,0,1,0,1,6
+51830,Williamsburg,51,VA,51,830,Mid-Atlantic,1,0,1,0,0,0,0,1,0,1,6
+53009,Clallam,53,WA,53,9,West,1,1,1,1,0,1,0,8,0,5,6
+53027,Grays Harbor,53,WA,53,27,West,1,1,1,1,0,1,0,5,0,4,6
+53029,Island,53,WA,53,29,West,1,1,1,1,0,1,0,3,0,4,6
+53031,Jefferson,53,WA,53,31,West,1,1,1,1,0,1,0,6,0,6,6
+53033,King,53,WA,53,33,West,1,1,1,1,0,1,0,1,0,1,6
+53035,Kitsap,53,WA,53,35,West,1,1,1,1,0,1,0,2,0,2,6
+53045,Mason,53,WA,53,45,West,1,1,1,1,0,1,0,5,0,4,6
+53049,Pacific,53,WA,53,49,West,1,1,1,1,0,1,0,9,0,7,6
+53053,Pierce,53,WA,53,53,West,1,1,1,1,0,1,0,1,0,1,6
+53055,San Juan,53,WA,53,55,West,1,1,1,1,0,1,0,12,0,9,6
+53057,Skagit,53,WA,53,57,West,1,1,1,1,0,1,0,2,0,3,6
+53061,Snohomish,53,WA,53,61,West,1,1,1,1,0,1,0,1,0,1,6
+53067,Thurston,53,WA,53,67,West,1,1,1,0,0,0,0,2,0,2,6
+53069,Wahkiakum,53,WA,53,69,West,1,1,1,1,0,1,0,7,0,8,6
+53073,Whatcom,53,WA,53,73,West,1,1,1,1,0,1,0,2,0,3,6
+55003,Ashland,55,WI,55,3,Great Lakes,1,1,1,1,0,1,0,11,0,7,6
+55007,Bayfield,55,WI,55,7,Great Lakes,1,1,1,1,0,1,0,7,0,8,6
+55009,Brown,55,WI,55,9,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+55029,Door,55,WI,55,29,Great Lakes,1,1,1,1,0,1,0,6,0,6,6
+55031,Douglas,55,WI,55,31,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+55051,Iron,55,WI,55,51,Great Lakes,1,1,1,1,0,1,0,12,0,9,6
+55059,Kenosha,55,WI,55,59,Great Lakes,1,1,1,1,0,1,0,1,0,3,4
+55061,Kewaunee,55,WI,55,61,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+55071,Manitowoc,55,WI,55,71,Great Lakes,1,1,1,1,0,1,0,5,0,4,6
+55075,Marinette,55,WI,55,75,Great Lakes,1,1,1,1,0,1,0,5,0,6,6
+55079,Milwaukee,55,WI,55,79,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+55083,Oconto,55,WI,55,83,Great Lakes,1,1,1,1,0,1,0,2,0,2,6
+55089,Ozaukee,55,WI,55,89,Great Lakes,1,1,1,1,0,1,0,1,0,1,6
+55101,Racine,55,WI,55,101,Great Lakes,1,1,1,1,0,1,0,2,0,3,6
+55117,Sheboygan,55,WI,55,117,Great Lakes,1,1,1,1,0,1,0,2,0,3,4
+66010,Guam,66,GU,66,10,Pacific,1,1,1,1,1,1,0,0,0,5,6
+60010,Eastern District,60,AS,60,10,Pacific,1,1,1,1,1,1,0,0,0,7,6
+60020,Manu'a District,60,AS,60,20,Pacific,1,1,1,1,1,1,0,0,0,9,6
+60050,Western District,60,AS,60,50,Pacific,1,1,1,1,1,1,0,0,0,5,6
+66030,Hagåt Municipality,66,GU,66,30,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66050,Barrigada Municipality,66,GU,66,50,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66060,Chalan Pago-Ordot Municipality,66,GU,66,60,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66070,Dededo Municipality,66,GU,66,70,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66075,Hagåtña Municipality,66,GU,66,75,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66090,Mangilao Municipality,66,GU,66,90,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66100,Malesso' Municipality,66,GU,66,100,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66110,Mongmong-Toto-Maite Municipality,66,GU,66,110,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66120,Piti Municipality,66,GU,66,120,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66160,Tamuning Municipality,66,GU,66,160,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66180,Yigo Municipality,66,GU,66,180,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66020,Agana Heights Municipality,66,GU,66,20,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66040,Asan-Maina Municipality,66,GU,66,40,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66170,Humåtak Municipality,66,GU,66,170,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66080,Inalåhan Municipality,66,GU,66,80,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66130,Sånta Rita-Sumai Municipality,66,GU,66,130,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66140,Sinajana Municipality,66,GU,66,140,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66150,Talo'fo'fo Municipality,66,GU,66,150,Pacific,1,1,1,1,1,1,0,0,0,0,6
+66190,Yona Municipality,66,GU,66,190,Pacific,1,1,1,1,1,1,0,0,0,0,6
+69085,Northern Islands Municipality,69,MP,69,85,Pacific,1,1,1,1,1,1,0,0,0,9,6
+69100,Rota Municipality,69,MP,69,100,Pacific,1,1,1,1,1,1,0,0,0,9,6
+69110,Saipan Municipality,69,MP,69,110,Pacific,1,1,1,1,1,1,0,0,0,5,6
+69120,Tinian Municipality,69,MP,69,120,Pacific,1,1,1,1,1,1,0,0,0,9,6
+72003,Aguada Municipio,72,PR,72,3,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72005,Aguadilla Municipio,72,PR,72,5,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72011,Añasco Municipio,72,PR,72,11,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72013,Arecibo Municipio,72,PR,72,13,Southeast,1,1,1,1,0,1,0,0,0,3,6
+72015,Arroyo Municipio,72,PR,72,15,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72017,Barceloneta Municipio,72,PR,72,17,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72021,Bayamón Municipio,72,PR,72,21,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72023,Cabo Rojo Municipio,72,PR,72,23,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72025,Caguas Municipio,72,PR,72,25,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72027,Camuy Municipio,72,PR,72,27,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72029,Canóvanas Municipio,72,PR,72,29,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72031,Carolina Municipio,72,PR,72,31,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72033,Cataño Municipio,72,PR,72,33,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72037,Ceiba Municipio,72,PR,72,37,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72049,Culebra Municipio,72,PR,72,49,Southeast,1,1,1,1,1,1,0,0,0,9,6
+72051,Dorado Municipio,72,PR,72,51,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72053,Fajardo Municipio,72,PR,72,53,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72055,Guánica Municipio,72,PR,72,55,Southeast,1,1,1,1,1,1,0,0,0,6,6
+72057,Guayama Municipio,72,PR,72,57,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72059,Guayanilla Municipio,72,PR,72,59,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72061,Guaynabo Municipio,72,PR,72,61,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72065,Hatillo Municipio,72,PR,72,65,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72067,Hormigueros Municipio,72,PR,72,67,Southeast,1,1,1,1,0,1,0,0,0,3,6
+72069,Humacao Municipio,72,PR,72,69,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72071,Isabela Municipio,72,PR,72,71,Southeast,1,1,1,1,0,1,0,0,0,2,6
+72075,Juana Díaz Municipio,72,PR,72,75,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72073,Jayuya Municipio,72,PR,72,73,Southeast,1,1,1,1,1,1,0,0,0,6,6
+72079,Lajas Municipio,72,PR,72,79,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72085,Las Piedras Municipio,72,PR,72,85,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72087,Loíza Municipio,72,PR,72,87,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72089,Luquillo Municipio,72,PR,72,89,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72091,Manatí Municipio,72,PR,72,91,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72095,Maunabo Municipio,72,PR,72,95,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72097,Mayagüez Municipio,72,PR,72,97,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72103,Naguabo Municipio,72,PR,72,103,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72109,Patillas Municipio,72,PR,72,109,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72111,Peñuelas Municipio,72,PR,72,111,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72113,Ponce Municipio,72,PR,72,113,Southeast,1,1,1,1,0,1,0,0,0,2,6
+72115,Quebradillas Municipio,72,PR,72,115,Southeast,1,1,1,1,1,1,0,0,0,3,6
+72117,Rincón Municipio,72,PR,72,117,Southeast,1,1,1,1,1,1,0,0,0,2,6
+72119,Río Grande Municipio,72,PR,72,119,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72123,Salinas Municipio,72,PR,72,123,Southeast,1,1,1,1,1,1,0,0,0,4,6
+72127,San Juan Municipio,72,PR,72,127,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72133,Santa Isabel Municipio,72,PR,72,133,Southeast,1,1,1,1,1,1,0,0,0,6,6
+72135,Toa Alta Municipio,72,PR,72,135,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72137,Toa Baja Municipio,72,PR,72,137,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72139,Trujillo Alto Municipio,72,PR,72,139,Southeast,1,1,1,1,0,1,0,0,0,1,6
+72143,Vega Alta Municipio,72,PR,72,143,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72145,Vega Baja Municipio,72,PR,72,145,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72147,Vieques Municipio,72,PR,72,147,Southeast,1,1,1,1,1,1,0,0,0,6,6
+72151,Yabucoa Municipio,72,PR,72,151,Southeast,1,1,1,1,1,1,0,0,0,1,6
+72153,Yauco Municipio,72,PR,72,153,Southeast,1,1,1,1,0,1,0,0,0,2,6
+78010,St. Croix Island,78,VI,78,10,Southeast,1,1,1,1,1,1,0,0,0,5,6
+78020,St. John Island,78,VI,78,20,Southeast,1,1,1,1,1,1,0,0,0,9,6
+78030,St. Thomas Island,78,VI,78,30,Southeast,1,1,1,1,1,1,0,0,0,5,6
+1000,AL,1,AL,1,0,,,,,,,,,,,,
+2000,AK,2,AK,2,0,,,,,,,,,,,,
+6000,CA,6,CA,6,0,,,,,,,,,,,,
+9000,CT,9,CT,9,0,,,,,,,,,,,,
+10000,DE,10,DE,10,0,,,,,,,,,,,,
+12000,FL,12,FL,12,0,,,,,,,,,,,,
+13000,GA,13,GA,13,0,,,,,,,,,,,,
+15000,HI,15,HI,15,0,,,,,,,,,,,,
+17000,IL,17,IL,17,0,,,,,,,,,,,,
+18000,IN,18,IN,18,0,,,,,,,,,,,,
+22000,LA,22,LA,22,0,,,,,,,,,,,,
+23000,ME,23,ME,23,0,,,,,,,,,,,,
+24000,MD,24,MD,24,0,,,,,,,,,,,,
+25000,MA,25,MA,25,0,,,,,,,,,,,,
+26000,MI,26,MI,26,0,,,,,,,,,,,,
+27000,MN,27,MN,27,0,,,,,,,,,,,,
+28000,MS,28,MS,28,0,,,,,,,,,,,,
+33000,NH,33,NH,33,0,,,,,,,,,,,,
+34000,NJ,34,NJ,34,0,,,,,,,,,,,,
+36000,NY,36,NY,36,0,,,,,,,,,,,,
+37000,NC,37,NC,37,0,,,,,,,,,,,,
+39000,OH,39,OH,39,0,,,,,,,,,,,,
+41000,OR,41,OR,41,0,,,,,,,,,,,,
+42000,PA,42,PA,42,0,,,,,,,,,,,,
+44000,RI,44,RI,44,0,,,,,,,,,,,,
+45000,SC,45,SC,45,0,,,,,,,,,,,,
+48000,TX,48,TX,48,0,,,,,,,,,,,,
+51000,VA,51,VA,51,0,,,,,,,,,,,,
+53000,WA,53,WA,53,0,,,,,,,,,,,,
+55000,WI,55,WI,55,0,,,,,,,,,,,,

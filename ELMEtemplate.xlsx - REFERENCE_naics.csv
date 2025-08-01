@@ -1,0 +1,106 @@
+﻿naicsCode,inENOW,naicsDescription,Sector,Industry
+11251,Industry Total,Fish Hatcheries and Aquaculture,Living Resources,Fish Hatcheries and Aquaculture
+112511,ENOW,Finfish Farming and Fish Hatcheries,Living Resources,Fish Hatcheries and Aquaculture
+112512,ENOW,Shellfish Farming,Living Resources,Fish Hatcheries and Aquaculture
+112519,ENOW,Other Aquaculture,Living Resources,Fish Hatcheries and Aquaculture
+11411,Industry Total,Fishing,Living Resources,Fishing
+114111,ENOW,Finfish Fishing,Living Resources,Fishing
+114112,ENOW,Shellfish Fishing,Living Resources,Fishing
+114119,ENOW,Other Marine Fishing,Living Resources,Fishing
+424460,ENOW,Fish and Seafood Merchant Wholesalers,Living Resources,Seafood Markets
+445250,ENOW,Fish and Seafood Retailers,Living Resources,Seafood Markets
+311710,ENOW,Seafood Product Preparation and Packaging,Living Resources,Seafood Processing
+237990,ENOW,Other Heavy and Civil Engineering Construction,Marine Construction,Marine Related Construction
+48311,Industry Total,"Deep Sea, Coastal, and Great Lakes Water Transportation",Marine Transportation,
+483111,ENOW,Deep Sea Freight Transportation,Marine Transportation,Marine Freight
+483113,ENOW,Coastal and Great Lakes Freight Transportation,Marine Transportation,Marine Freight
+483112,ENOW,Deep Sea Passenger Transportation,Marine Transportation,Marine Passenger Transportation
+483114,ENOW,Coastal and Great Lakes Passenger Transportation,Marine Transportation,Marine Passenger Transportation
+4883,Industry Total,Industry total: Marine Transportation Services,Marine Transportation,Marine Transportation Services
+488310,ENOW,Port and Harbor Operations,Marine Transportation,Marine Transportation Services
+488320,ENOW,Marine Cargo Handling,Marine Transportation,Marine Transportation Services
+488330,ENOW,Navigational Services to Shipping,Marine Transportation,Marine Transportation Services
+488390,ENOW,Other Support Activities for Water Transportation,Marine Transportation,Marine Transportation Services
+334511,ENOW,"Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing",Marine Transportation,Search and Navigation Equipment
+493,Industry Total,Warehousing and Storage,Marine Transportation,Warehousing
+493110,ENOW,General Warehousing and Storage,Marine Transportation,Warehousing
+493120,ENOW,Refrigerated Warehousing and Storage,Marine Transportation,Warehousing
+493130,ENOW,Farm Product Warehousing and Storage,Marine Transportation,Warehousing
+212321,ENOW,Construction Sand and Gravel Mining,Offshore Mineral Resources,"Limestone, Sand and Gravel"
+212322,ENOW,Industrial Sand Mining,Offshore Mineral Resources,"Limestone, Sand and Gravel"
+211120,ENOW,Crude Petroleum Extraction ,Offshore Mineral Resources,Oil and Gas Exploration and Product
+211130,ENOW,Natural Gas Extraction,Offshore Mineral Resources,Oil and Gas Exploration and Product
+213111,ENOW,Drilling Oil and Gas Wells,Offshore Mineral Resources,Oil and Gas Exploration and Product
+213112,ENOW,Support Activities for Oil and Gas Operations,Offshore Mineral Resources,Oil and Gas Exploration and Product
+541360,ENOW,Geophysical Surveying and Mapping Services,Offshore Mineral Resources,Oil and Gas Exploration and Product
+33661,Sector Total,Ship and Boat Building,Ship and Boat Building,
+336612,ENOW,Boat Building,Ship and Boat Building,Boat Building and Repair
+336611,ENOW,Ship Building and Repairing,Ship and Boat Building,Ship Building and Repair
+487990,ENOW,"Scenic and Sightseeing Transportation, Other",Tourism and Recreation,Amusement and Recreation Services
+532284,ENOW,Recreational Goods Rental,Tourism and Recreation,Amusement and Recreation Services
+611620,ENOW,Sports and Recreation Instruction,Tourism and Recreation,Amusement and Recreation Services
+713990,ENOW,All Other Amusement and Recreation Industries,Tourism and Recreation,Amusement and Recreation Services
+441222,ENOW,Boat Dealers,Tourism and Recreation,Boat Dealers
+72251,Industry Total,Eating and Drinking Places,Tourism and Recreation,Eating and Drinking Places
+722511,ENOW,Full-Service Restaurants,Tourism and Recreation,Eating and Drinking Places
+722513,ENOW,Limited-Service Restaurants,Tourism and Recreation,Eating and Drinking Places
+722514,ENOW,"Cafeterias, Grill Buffets, and Buffets",Tourism and Recreation,Eating and Drinking Places
+722515,ENOW,Snack and Nonalcoholic Beverage Bars,Tourism and Recreation,Eating and Drinking Places
+7211,Additional Industries,Traveler Accommodation,Tourism and Recreation,Hotels and Lodging Places
+721110,ENOW,Hotels (except Casino Hotels) and Motels,Tourism and Recreation,Hotels and Lodging Places
+721191,ENOW,Bed-and-Breakfast Inns,Tourism and Recreation,Hotels and Lodging Places
+713930,ENOW,Marinas,Tourism and Recreation,Marinas
+721211,ENOW,RV (Recreational Vehicle) Parks and Campgrounds,Tourism and Recreation,RV Parks and Campgrounds
+487210,ENOW,"Scenic and Sightseeing Transportation, Water",Tourism and Recreation,Scenic Water Tours
+339920,ENOW,Sporting and Athletic Goods Manufacturing,Tourism and Recreation,Sporting Goods Manufacturing
+712130,ENOW,Zoos and Botanical Gardens,Tourism and Recreation,Zoos and Aquaria
+712190,ENOW,Nature Parks and Other Similar Institutions,Tourism and Recreation,Zoos and Aquaria
+7121,Additional Industries,"Museums, Historical Sites, and Similar Institutions",Tourism and Recreation,Parks and Cultural Sites
+22111,Additional Industries,Electrical Power Generation,Electrical Utilities,
+221111,Additional Industries,Hydroelectric Power Generation,Electrical Utilities,
+221112,Additional Industries,Fossil Fuel Electric Power Generation,Electrical Utilities,
+221113,Additional Industries,Nuclear Electric Power Generation,Electrical Utilities,
+221115,Additional Industries,Wind Electric Power Generation,Electrical Utilities,
+221117,Additional Industries,Biomass Electric Power Generation,Electrical Utilities,
+921190,Additional Industries,Other General Government Support,Government,
+924120,Additional Industries,Administration of Conservation Programs,Government,
+926120,Additional Industries,Regulation and Administration of Transportation Programs,Government,
+928110,Additional Industries,National Security,Government,
+237120,Additional Industries,Oil and Gas Pipeline and Related Structures Construction,Other Construction,
+237130,Additional Industries,Power and Communication Line and Related Structures Construction,Other Construction,
+238910,Additional Industries,Site Preparation Contractors,Other Construction,
+238990,Additional Industries,All Other Specialty Trade Contractors,Other Construction,
+541320,Additional Industries,Landscape Architectural Services,Other Construction,
+541330,Additional Industries,Engineering Services,Other Construction,
+312113,Additional Industries,Ice Manufacturing,Other Manufacturing,
+314999,Additional Industries,All Other Miscellaneous Textile Product Mills,Other Manufacturing,
+332410,Additional Industries,Power Boiler and Heat Exchanger Manufacturing,Other Manufacturing,
+332618,Additional Industries,Other Fabricated Wire Product Manufacturing,Other Manufacturing,
+333611,Additional Industries,Turbine and Turbine Generator Set Units Manufacturing,Other Manufacturing,
+333618,Additional Industries,Other Engine Equipment Manufacturing,Other Manufacturing,
+423830,Additional Industries,Industrial Machinery and Equipment Merchant Wholesalers,Miscellaneous,
+531312,Additional Industries,Nonresidential Property Managers,Miscellaneous,
+312120,Additional Industries,Breweries,Tourism and Recreation,
+459420,Additional Industries,"Gift, Novelty, and Souvenir Retailers",Tourism and Recreation,
+561510,Additional Industries,Travel Agencies,Tourism and Recreation,
+561520,Additional Industries,Tour Operators,Tourism and Recreation,
+561591,Additional Industries,Convention and Visitors Bureaus,Tourism and Recreation,
+711310,Additional Industries,"Promoters of Performing Arts, Sports, and Similar Events with Facilities",Tourism and Recreation,
+712110,Additional Industries,Museums,Tourism and Recreation,
+712190,Additional Industries,Nature Parks and Other Similar Institutions,Tourism and Recreation,
+713110,Additional Industries,Amusement and Theme Parks,Tourism and Recreation,
+721211,Additional Industries,RV (Recreational Vehicle) Parks and Campgrounds,Tourism and Recreation,
+423860,Additional Industries,Transportation Equipment and Supplies (except Motor Vehicle) Merchant Wholesalers,Marine Transportation,
+424710,Additional Industries,Petroleum Bulk Stations and Terminals,Marine Transportation,
+457120,Additional Industries,Other Gasoline Stations,Marine Transportation,
+482111,Additional Industries,Line-Haul Railroads,Marine Transportation,
+482112,Additional Industries,Short Line Railroads,Marine Transportation,
+483211,Additional Industries,Inland Water Freight Transportation,Marine Transportation,
+483212,Additional Industries,Inland Water Passenger Transportation,Marine Transportation,
+484220,Additional Industries,"Specialized Freight (except Used Goods) Trucking, Local",Marine Transportation,
+488510,Additional Industries,Freight Transportation Arrangement,Marine Transportation,
+532411,Additional Industries,"Commercial Air, Rail, and Water Transportation Equipment Rental and Leasing",Marine Transportation,
+611310,Additional Industries,"Colleges, Universities, and Professional Schools",Research and Education,
+611513,Additional Industries,Apprenticeship Training,Research and Education,
+541715,Additional Industries,"Research and Development in the Physical, Engineering, and Life Sciences (except Nanotechnology and Biotechnology)",Research and Education,
+813312,Additional Industries,"Environment, Conservation and Wildlife Organizations",Research and Education,

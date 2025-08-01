@@ -1,0 +1,3 @@
+﻿zip,Coastal_Zip,city,state,county,Establishments,Employees, Q1_Payroll , Annual_Payroll ,noise_emp,noise_q1,noise_ap,name
+123456,YES,Example City,EX,EXAMPLE,750,7500," $100,000 "," $400,000 ",,,,"Example City, EX"
+654321,YES,Demo-opolis,EX,EXAMPLE,250,2500," $50,000 "," $200,000 ",,,,"Demo-opolis, EX"

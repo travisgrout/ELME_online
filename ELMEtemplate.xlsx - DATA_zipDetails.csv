@@ -1,0 +1,16 @@
+﻿zip,Coastal_Zip,city,state,county,lvl,naics,est,estimatedEmployment,n1_4,n5_9,n10_19,n20_49,n50_99,n100_249,n250_499,n500_999,n1000,missingEsts,zipMatch,naicsMatch,enowSector
+123456,YES,Example City,EX,EXAMPLE,1,112511,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,2,112512,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,3,112519,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,4,114111,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,5,114112,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,6,114119,25,50,,,,,,,,,,,YES,YES,Living Resources
+123456,YES,Example City,EX,EXAMPLE,2,424460,25,50,,,,,,,,,,,YES,YES,Living Resources
+654321,YES,Demo-opolis,EX,EXAMPLE,3,445250,30,90,,,,,,,,,,,YES,YES,Living Resources
+654321,YES,Demo-opolis,EX,EXAMPLE,4,311710,30,90,,,,,,,,,,,YES,YES,Living Resources
+654321,YES,Demo-opolis,EX,EXAMPLE,2,237990,30,90,,,,,,,,,,,YES,YES,Marine Construction
+654321,YES,Demo-opolis,EX,EXAMPLE,3,483111,30,90,,,,,,,,,,,YES,YES,Marine Transportation
+654321,YES,Demo-opolis,EX,EXAMPLE,4,483113,30,90,,,,,,,,,,,YES,YES,Marine Transportation
+654321,YES,Demo-opolis,EX,EXAMPLE,5,483112,30,90,,,,,,,,,,,YES,YES,Marine Transportation
+654321,YES,Demo-opolis,EX,EXAMPLE,6,483114,30,90,,,,,,,,,,,YES,YES,Marine Transportation
+654321,YES,Demo-opolis,EX,EXAMPLE,4,2362,2,8,,,,,,,,,,,YES,#N/A,#N/A
