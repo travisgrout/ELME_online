@@ -34,179 +34,213 @@ NAICS_CODES = {
     '339920': 'Sporting and Athletic Goods Manufacturing', '712130': 'Zoos and Botanical Gardens',
     '712190': 'Nature Parks and Other Similar Institutions'
 }
-
-# Establishment size columns
-SIZE_COLS = [
-    "n1_4", "n5_9", "n10_19", "n20_49", "n50_99",
-    "n100_249", "n250_499", "n500_999", "n1000"
-]
-
-# Mid-points for employment estimation
-EMPLOYMENT_MIDPOINTS = {
-    'n1_4': 2.5, 'n5_9': 7.0, 'n10_19': 14.5, 'n20_49': 34.5,
-    'n50_99': 74.5, 'n100_249': 174.5, 'n250_499': 374.5,
-    'n500_999': 749.5, 'n1000': 1500.0
-}
-
 DATA_FOLDER = "Cleaned Census Inputs"
 
-# --- Data Loading Functions ---
+# --- Data Loading and Processing Functions (Cached for performance) ---
 
 @st.cache_data
 def load_selection_data():
-    """
-    Loads the `cleaned_zip_totals.csv` file to populate the selection menus.
-    This is cached for efficiency.
-    """
+    """Loads data from cleaned_zip_totals.csv to populate selection menus."""
+    totals_path = os.path.join(DATA_FOLDER, "cleaned_zip_totals.csv")
     try:
-        totals_path = os.path.join(DATA_FOLDER, "cleaned_zip_totals.csv")
         return pd.read_csv(totals_path, dtype={'zip': str})
     except FileNotFoundError:
-        st.error(f"Error: `cleaned_zip_totals.csv` not found in the '{DATA_FOLDER}' folder. This file is required to populate the selection menus.")
+        st.error(f"Error: `cleaned_zip_totals.csv` not found in '{DATA_FOLDER}'.")
         st.stop()
 
 @st.cache_data
 def load_state_data(selected_states):
-    """
-    Dynamically loads and combines the required state-specific industry CSVs
-    based on the user's state selection.
-    """
+    """Dynamically loads and combines state-specific industry CSVs."""
     state_dfs = []
-    # Loop through selected states and load their corresponding data
     for state in selected_states:
-        # Construct the file name (e.g., cleaned_zip_California.csv)
         state_file = f"cleaned_zip_{state.replace(' ', '')}.csv"
         state_path = os.path.join(DATA_FOLDER, state_file)
         try:
-            state_df = pd.read_csv(state_path, dtype={'zip': str, 'fips': str, 'naics': str})
-            state_dfs.append(state_df)
+            state_dfs.append(pd.read_csv(state_path, dtype={'zip': str, 'fips': str, 'naics': str}))
         except FileNotFoundError:
-            st.warning(f"Warning: Data file not found for {state} at `{state_path}`. Skipping this state.")
-
+            st.warning(f"Warning: Data file not found for {state}. Skipping.")
     if not state_dfs:
-        st.error("No data could be loaded for the selected states. Please check your file names.")
+        st.error("No data could be loaded for the selected states.")
         st.stop()
-        
-    # Combine all loaded state dataframes into one
     return pd.concat(state_dfs, ignore_index=True)
-
 
 @st.cache_data
 def calculate_employment(_df):
-    """
-    Directly calculates estimated employment from the provided dataframe.
-    The establishment distribution step has been removed as requested.
-    """
-    st.write("Calculating employment estimates...")
-    
-    # Make a copy to avoid modifying the cached dataframe
+    """Directly calculates estimated employment from the provided dataframe."""
     df_processed = _df.copy()
-
-    # Calculate employment for each size category and sum them up
     df_processed['estimated_employment'] = 0.0
-    for col, midpoint in EMPLOYMENT_MIDPOINTS.items():
-        # Ensure the column exists before trying to use it
+    midpoints = {
+        'n1_4': 2.5, 'n5_9': 7.0, 'n10_19': 14.5, 'n20_49': 34.5, 'n50_99': 74.5,
+        'n100_249': 174.5, 'n250_499': 374.5, 'n500_999': 749.5, 'n1000': 1500.0
+    }
+    for col, midpoint in midpoints.items():
         if col in df_processed.columns:
-            # Convert column to numeric, coercing errors, and fill NaNs with 0
             numeric_col = pd.to_numeric(df_processed[col], errors='coerce').fillna(0)
             df_processed['estimated_employment'] += numeric_col * midpoint
-    
-    st.success("Calculation complete.", icon="✅")
     return df_processed
 
-# --- Streamlit User Interface ---
+# --- App Initialization ---
 
 st.set_page_config(layout="wide")
 st.title("🚢 Marine Economy Employment Estimator")
 
-# Load data for the dropdown menus
+# Initialize session state to manage the user's progress
+if 'step' not in st.session_state:
+    st.session_state.step = 'state_selection'
+    st.session_state.selections = {}
+
+# Load the data for populating the menus
 selection_df = load_selection_data()
 
-# --- Sidebar for User Selections ---
-st.sidebar.header("Step 1: Select Your Region")
-
-# State Selection
-available_states = sorted(selection_df['state'].dropna().unique())
-selected_states = st.sidebar.multiselect("Select State(s)", available_states)
-
-# County Selection
-selected_counties = []
-if selected_states:
-    county_mask = selection_df['state'].isin(selected_states)
-    available_counties = sorted(selection_df[county_mask]['cty_name'].dropna().unique())
-    selected_counties = st.sidebar.multiselect("Select County(s)", available_counties)
-
-# Zip Code Selection
-selected_zips = []
-if selected_counties:
-    zip_mask = selection_df['cty_name'].isin(selected_counties)
-    zip_options_df = selection_df[zip_mask].copy().dropna(subset=['zip', 'city', 'cty_name'])
-    zip_options_df['display'] = zip_options_df.apply(
-        lambda row: f"{row['zip']} ({row['city']}, {row['cty_name']}) - Coastal: {'Yes' if row.get('coastalZip', 0) == 1 else 'No'}",
-        axis=1
+# --- Step 1: State Selection ---
+if st.session_state.step == 'state_selection':
+    st.header("Step 1: Select State(s)")
+    
+    states = sorted(selection_df['state'].dropna().unique())
+    state_df = pd.DataFrame({'State': states})
+    state_df['Select'] = False
+    
+    # Use data_editor to create an interactive table
+    edited_df = st.data_editor(
+        state_df[['Select', 'State']],
+        hide_index=True,
+        use_container_width=True
     )
-    zip_options_map = pd.Series(zip_options_df['zip'].values, index=zip_options_df['display']).to_dict()
-    available_zips_display = sorted(zip_options_map.keys())
-    selected_zips_display = st.sidebar.multiselect("Select ZIP Code(s)", available_zips_display)
-    selected_zips = [zip_options_map[z] for z in selected_zips_display]
+    
+    if st.button("Next: Select Counties", type="primary"):
+        st.session_state.selections['states'] = edited_df[edited_df['Select']]['State'].tolist()
+        if not st.session_state.selections['states']:
+            st.warning("Please select at least one state.")
+        else:
+            st.session_state.step = 'county_selection'
+            st.rerun()
 
-# --- Industry Selection ---
-st.sidebar.header("Step 2: Select Industries")
-naics_display_list = [f"{code} - {desc}" for code, desc in NAICS_CODES.items()]
-selected_naics_display = st.sidebar.multiselect(
-    "Select from default NAICS codes:",
-    options=naics_display_list,
-    default=naics_display_list
-)
-selected_naics_codes = [item.split(' - ')[0] for item in selected_naics_display]
+# --- Step 2: County Selection ---
+elif st.session_state.step == 'county_selection':
+    st.header("Step 2: Select County(ies)")
+    
+    filtered_df = selection_df[selection_df['state'].isin(st.session_state.selections['states'])]
+    counties = sorted(filtered_df['cty_name'].dropna().unique())
+    county_df = pd.DataFrame({'County': counties})
+    county_df['Select'] = False
 
-custom_naics_input = st.sidebar.text_area("Add custom NAICS codes (comma-separated):")
-if custom_naics_input:
-    custom_naics = [code.strip() for code in custom_naics_input.split(',')]
-    all_selected_naics = list(set(selected_naics_codes + custom_naics))
-else:
-    all_selected_naics = selected_naics_codes
-
-# --- Main Panel for Calculation and Results ---
-
-st.header("Results")
-if st.button("Generate Employment Estimates", type="primary"):
-    if not selected_states or not selected_counties or not selected_zips or not all_selected_naics:
-        st.warning("Please select at least one State, County, ZIP Code, and Industry.")
-    else:
-        with st.spinner('Loading data and calculating...'):
-            # 1. Load the raw data for the selected states
-            state_level_data = load_state_data(selected_states)
-            
-            # 2. Directly calculate employment from the loaded data
-            processed_data = calculate_employment(state_level_data)
-            
-            # 3. Filter results based on all user selections
-            results_mask = (
-                processed_data['zip'].isin(selected_zips) & 
-                processed_data['naics'].isin(all_selected_naics)
-            )
-            final_df = processed_data[results_mask]
-
-            if final_df.empty:
-                st.info("No data available for the selected criteria.")
+    edited_df = st.data_editor(
+        county_df[['Select', 'County']],
+        hide_index=True,
+        use_container_width=True
+    )
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Back to State Selection"):
+            st.session_state.step = 'state_selection'
+            st.rerun()
+    with col2:
+        if st.button("Next: Select ZIP Codes", type="primary"):
+            st.session_state.selections['counties'] = edited_df[edited_df['Select']]['County'].tolist()
+            if not st.session_state.selections['counties']:
+                st.warning("Please select at least one county.")
             else:
-                # Aggregate results by industry
-                employment_summary = final_df.groupby('naics')['estimated_employment'].sum().reset_index()
-                employment_summary['industry_description'] = employment_summary['naics'].map(NAICS_CODES).fillna("Custom or Unknown NAICS")
-                
-                # Format for display
-                employment_summary = employment_summary.rename(columns={
-                    'naics': 'NAICS Code',
-                    'estimated_employment': 'Estimated Employment',
-                    'industry_description': 'Industry Description'
-                })
-                
-                employment_summary = employment_summary[['NAICS Code', 'Industry Description', 'Estimated Employment']]
-                
-                st.subheader("Total Estimated Employment by Industry")
-                # Display results with formatted numbers
-                st.dataframe(employment_summary.style.format({'Estimated Employment': '{:,.0f}'}), use_container_width=True)
+                st.session_state.step = 'zip_selection'
+                st.rerun()
 
-                total_employment = employment_summary['Estimated Employment'].sum()
-                st.metric(label="Total Estimated Employment for Selection", value=f"{total_employment:,.0f}")
+# --- Step 3: ZIP Code Selection ---
+elif st.session_state.step == 'zip_selection':
+    st.header("Step 3: Select ZIP Code(s)")
+    
+    filtered_df = selection_df[selection_df['cty_name'].isin(st.session_state.selections['counties'])]
+    zip_df = filtered_df[['zip', 'city', 'cty_name', 'coastalZip']].copy().dropna().drop_duplicates()
+    zip_df.rename(columns={'zip': 'ZIP', 'city': 'City', 'cty_name': 'County', 'coastalZip': 'Coastal'}, inplace=True)
+    zip_df['Coastal'] = zip_df['Coastal'].apply(lambda x: 'Yes' if x == 1 else 'No')
+    zip_df['Select'] = False
+
+    edited_df = st.data_editor(
+        zip_df[['Select', 'ZIP', 'City', 'County', 'Coastal']],
+        hide_index=True,
+        use_container_width=True
+    )
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Back to County Selection"):
+            st.session_state.step = 'county_selection'
+            st.rerun()
+    with col2:
+        if st.button("Next: Select Industries", type="primary"):
+            st.session_state.selections['zips'] = edited_df[edited_df['Select']]['ZIP'].tolist()
+            if not st.session_state.selections['zips']:
+                st.warning("Please select at least one ZIP code.")
+            else:
+                st.session_state.step = 'naics_selection'
+                st.rerun()
+                
+# --- Step 4: NAICS Selection ---
+elif st.session_state.step == 'naics_selection':
+    st.header("Step 4: Select Industries")
+
+    naics_list = [{'NAICS Code': code, 'Description': desc} for code, desc in NAICS_CODES.items()]
+    naics_df = pd.DataFrame(naics_list)
+    naics_df['Select'] = True # Default to all selected
+
+    edited_df = st.data_editor(
+        naics_df[['Select', 'NAICS Code', 'Description']],
+        hide_index=True,
+        use_container_width=True
+    )
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Back to ZIP Code Selection"):
+            st.session_state.step = 'zip_selection'
+            st.rerun()
+    with col2:
+        if st.button("Generate Employment Estimates", type="primary"):
+            st.session_state.selections['naics'] = edited_df[edited_df['Select']]['NAICS Code'].tolist()
+            if not st.session_state.selections['naics']:
+                st.warning("Please select at least one industry.")
+            else:
+                st.session_state.step = 'show_results'
+                st.rerun()
+
+# --- Step 5: Show Results ---
+elif st.session_state.step == 'show_results':
+    st.header("Final Employment Estimates")
+    
+    # Retrieve all selections
+    selections = st.session_state.selections
+    
+    st.write("Based on your selections:")
+    st.write(f"**States:** {', '.join(selections['states'])}")
+    st.write(f"**Counties:** {len(selections['counties'])} selected")
+    st.write(f"**ZIP Codes:** {len(selections['zips'])} selected")
+    st.write(f"**Industries:** {len(selections['naics'])} selected")
+    
+    with st.spinner('Loading data and calculating...'):
+        state_level_data = load_state_data(selections['states'])
+        processed_data = calculate_employment(state_level_data)
+        
+        mask = (
+            processed_data['zip'].isin(selections['zips']) &
+            processed_data['naics'].isin(selections['naics'])
+        )
+        final_df = processed_data[mask]
+
+        if final_df.empty:
+            st.info("No data available for the selected criteria.")
+        else:
+            summary = final_df.groupby('naics')['estimated_employment'].sum().reset_index()
+            summary['Industry Description'] = summary['naics'].map(NAICS_CODES).fillna("Unknown")
+            summary.rename(columns={'naics': 'NAICS Code', 'estimated_employment': 'Estimated Employment'}, inplace=True)
+            
+            st.dataframe(
+                summary[['NAICS Code', 'Industry Description', 'Estimated Employment']].style.format({'Estimated Employment': '{:,.0f}'}),
+                use_container_width=True
+            )
+            total_employment = summary['Estimated Employment'].sum()
+            st.metric(label="Total Estimated Employment for Selection", value=f"{total_employment:,.0f}")
+    
+    if st.button("Start Over"):
+        # Clear the session state to reset the app
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
