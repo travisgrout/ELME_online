@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os # Import the os module to handle file paths
+import os
 
 # --- Constants and Configuration ---
 
@@ -66,10 +66,10 @@ def load_selection_data():
         st.stop()
 
 @st.cache_data
-def load_processing_data(selected_states):
+def load_state_data(selected_states):
     """
-    Dynamically loads the required state-specific industry CSVs and the county data
-    based on user's state selection.
+    Dynamically loads and combines the required state-specific industry CSVs
+    based on the user's state selection.
     """
     state_dfs = []
     # Loop through selected states and load their corresponding data
@@ -87,83 +87,32 @@ def load_processing_data(selected_states):
         st.error("No data could be loaded for the selected states. Please check your file names.")
         st.stop()
         
-    # Combine all loaded state dataframes
-    zip_df = pd.concat(state_dfs, ignore_index=True)
+    # Combine all loaded state dataframes into one
+    return pd.concat(state_dfs, ignore_index=True)
 
-    # Load the county-level data
-    try:
-        county_path = os.path.join(DATA_FOLDER, "cleaned_cbp_counties.csv")
-        county_df = pd.read_csv(county_path, dtype={'fipstate': str, 'fipscty': str, 'naics': str})
-    except FileNotFoundError:
-        st.error(f"Error: `cleaned_cbp_counties.csv` not found in '{DATA_FOLDER}'. This file is essential for processing.")
-        st.stop()
-
-    # --- Prepare County Data ---
-    county_df['fipscty'] = county_df['fipscty'].str.zfill(3)
-    county_df['fips'] = county_df['fipstate'].str.zfill(2) + county_df['fipscty']
-    county_df['zip'] = -99999 # Sentinel value
-    if 'ALLCoastalCounty' in county_df.columns:
-        county_df.rename(columns={'ALLCoastalCounty': 'coastalCounty'}, inplace=True)
-
-    # --- Align and Combine Dataframes ---
-    final_columns = ['fips', 'naics', 'est', 'state', 'cty_name', 'zip', 'city', 'coastalCounty'] + SIZE_COLS
-    zip_df_aligned = zip_df.reindex(columns=final_columns)
-    county_df_aligned = county_df.reindex(columns=final_columns)
-    
-    combined_df = pd.concat([zip_df_aligned, county_df_aligned], ignore_index=True)
-
-    # Convert columns to numeric for calculations
-    for col in ['est'] + SIZE_COLS:
-        combined_df[col] = pd.to_numeric(combined_df[col], errors='coerce')
-
-    return combined_df
-
-# --- Core Data Processing Functions ---
-
-def distribute_establishments(group, size_cols):
-    """Distributes establishments based on county totals."""
-    # This function's logic remains the same as before.
-    county_row = group[group['zip'] == -99999]
-    zip_rows = group[group['zip'] != -99999].copy()
-
-    if county_row.empty or zip_rows.empty:
-        return group
-
-    county_vals = county_row[size_cols].iloc[0].fillna(0)
-    zip_sums_before = zip_rows[size_cols].sum().fillna(0)
-    capacity = county_vals - zip_sums_before
-    capacity[capacity < 0] = 0
-
-    for i, row in zip_rows.iterrows():
-        if pd.isna(row['est']): continue
-        missing_estab = row['est'] - row[size_cols].sum()
-        if missing_estab > 0:
-            target_cols_mask = row[size_cols].fillna(0) == 0
-            target_cols = [col for col, mask in target_cols_mask.items() if mask]
-            if target_cols:
-                weights = county_vals[target_cols]
-                total_weight = weights.sum()
-                if total_weight > 0:
-                    proportions = weights / total_weight
-                    allocations = missing_estab * proportions
-                    zip_rows.loc[i, target_cols] += allocations
-    return pd.concat([county_row, zip_rows], ignore_index=True)
 
 @st.cache_data
-def run_processing(_df):
-    """Main processing pipeline."""
-    st.write("Processing Data: Distributing establishments...")
-    processed_df = _df.groupby(['naics', 'fips'], group_keys=False).apply(lambda x: distribute_establishments(x, SIZE_COLS))
+def calculate_employment(_df):
+    """
+    Directly calculates estimated employment from the provided dataframe.
+    The establishment distribution step has been removed as requested.
+    """
+    st.write("Calculating employment estimates...")
     
-    st.write("Processing Data: Estimating employment...")
-    zip_data = processed_df[processed_df['zip'] != -99999].copy()
-    zip_data['estimated_employment'] = 0.0
+    # Make a copy to avoid modifying the cached dataframe
+    df_processed = _df.copy()
+
+    # Calculate employment for each size category and sum them up
+    df_processed['estimated_employment'] = 0.0
     for col, midpoint in EMPLOYMENT_MIDPOINTS.items():
-        zip_data[col] = zip_data[col].fillna(0)
-        zip_data['estimated_employment'] += zip_data[col] * midpoint
+        # Ensure the column exists before trying to use it
+        if col in df_processed.columns:
+            # Convert column to numeric, coercing errors, and fill NaNs with 0
+            numeric_col = pd.to_numeric(df_processed[col], errors='coerce').fillna(0)
+            df_processed['estimated_employment'] += numeric_col * midpoint
     
-    st.success("Processing complete.", icon="✅")
-    return zip_data
+    st.success("Calculation complete.", icon="✅")
+    return df_processed
 
 # --- Streamlit User Interface ---
 
@@ -225,23 +174,28 @@ if st.button("Generate Employment Estimates", type="primary"):
     if not selected_states or not selected_counties or not selected_zips or not all_selected_naics:
         st.warning("Please select at least one State, County, ZIP Code, and Industry.")
     else:
-        with st.spinner('Loading data and calculating... This may take a moment.'):
-            # Load the data for processing based on state selections
-            initial_data = load_processing_data(selected_states)
+        with st.spinner('Loading data and calculating...'):
+            # 1. Load the raw data for the selected states
+            state_level_data = load_state_data(selected_states)
             
-            # Run the core processing logic
-            processed_data = run_processing(initial_data)
+            # 2. Directly calculate employment from the loaded data
+            processed_data = calculate_employment(state_level_data)
             
-            # Filter results based on all user selections
-            results_mask = (processed_data['zip'].isin(selected_zips)) & (processed_data['naics'].isin(all_selected_naics))
+            # 3. Filter results based on all user selections
+            results_mask = (
+                processed_data['zip'].isin(selected_zips) & 
+                processed_data['naics'].isin(all_selected_naics)
+            )
             final_df = processed_data[results_mask]
 
             if final_df.empty:
                 st.info("No data available for the selected criteria.")
             else:
+                # Aggregate results by industry
                 employment_summary = final_df.groupby('naics')['estimated_employment'].sum().reset_index()
                 employment_summary['industry_description'] = employment_summary['naics'].map(NAICS_CODES).fillna("Custom or Unknown NAICS")
                 
+                # Format for display
                 employment_summary = employment_summary.rename(columns={
                     'naics': 'NAICS Code',
                     'estimated_employment': 'Estimated Employment',
@@ -251,6 +205,7 @@ if st.button("Generate Employment Estimates", type="primary"):
                 employment_summary = employment_summary[['NAICS Code', 'Industry Description', 'Estimated Employment']]
                 
                 st.subheader("Total Estimated Employment by Industry")
+                # Display results with formatted numbers
                 st.dataframe(employment_summary.style.format({'Estimated Employment': '{:,.0f}'}), use_container_width=True)
 
                 total_employment = employment_summary['Estimated Employment'].sum()
