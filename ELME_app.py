@@ -4,36 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 
-# --- Constants and Configuration ---
-
-# NAICS codes and their descriptions
-NAICS_CODES = {
-    '112511': 'Finfish Farming and Fish Hatcheries', '112512': 'Shellfish Farming',
-    '112519': 'Other Aquaculture', '114111': 'Finfish Fishing',
-    '114112': 'Shellfish Fishing', '114119': 'Other Marine Fishing',
-    '424460': 'Fish and Seafood Merchant Wholesalers', '445250': 'Fish and Seafood Retailers',
-    '311710': 'Seafood Product Preparation and Packaging', '237990': 'Other Heavy and Civil Engineering Construction',
-    '483111': 'Deep Sea Freight Transportation', '483113': 'Coastal and Great Lakes Freight Transportation',
-    '483112': 'Deep Sea Passenger Transportation', '483114': 'Coastal and Great Lakes Passenger Transportation',
-    '488310': 'Port and Harbor Operations', '488320': 'Marine Cargo Handling',
-    '488330': 'Navigational Services to Shipping', '488390': 'Other Support Activities for Water Transportation',
-    '334511': 'Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing',
-    '493110': 'General Warehousing and Storage', '493120': 'Refrigerated Warehousing and Storage',
-    '493130': 'Farm Product Warehousing and Storage', '212321': 'Construction Sand and Gravel Mining',
-    '212322': 'Industrial Sand Mining', '211120': 'Crude Petroleum Extraction',
-    '211130': 'Natural Gas Extraction', '213111': 'Drilling Oil and Gas Wells',
-    '213112': 'Support Activities for Oil and Gas Operations', '541360': 'Geophysical Surveying and Mapping Services',
-    '336612': 'Boat Building', '336611': 'Ship Building and Repairing',
-    '487990': 'Scenic and Sightseeing Transportation, Other', '532284': 'Recreational Goods Rental',
-    '611620': 'Sports and Recreation Instruction', '713990': 'All Other Amusement and Recreation Industries',
-    '441222': 'Boat Dealers', '722511': 'Full-Service Restaurants',
-    '722513': 'Limited-Service Restaurants', '722514': 'Cafeterias, Grill Buffets, and Buffets',
-    '722515': 'Snack and Nonalcoholic Beverage Bars', '721110': 'Hotels (except Casino Hotels) and Motels',
-    '721191': 'Bed-and-Breakfast Inns', '713930': 'Marinas',
-    '721211': 'RV (Recreational Vehicle) Parks and Campgrounds', '487210': 'Scenic and Sightseeing Transportation, Water',
-    '339920': 'Sporting and Athletic Goods Manufacturing', '712130': 'Zoos and Botanical Gardens',
-    '712190': 'Nature Parks and Other Similar Institutions'
-}
+# --- Configuration ---
 DATA_FOLDER = "Cleaned Census Inputs"
 
 # --- Data Loading and Processing Functions (Cached for performance) ---
@@ -46,6 +17,17 @@ def load_selection_data():
         return pd.read_csv(totals_path, dtype={'zip': str})
     except FileNotFoundError:
         st.error(f"Error: `cleaned_zip_totals.csv` not found in '{DATA_FOLDER}'.")
+        st.stop()
+
+@st.cache_data
+def load_naics_data():
+    """Loads NAICS code information from the NAICS_to_ELME.csv file."""
+    naics_path = "NAICS_to_ELME.csv"
+    try:
+        # Load NAICS codes as strings to preserve any leading zeros
+        return pd.read_csv(naics_path, dtype={'naics': str})
+    except FileNotFoundError:
+        st.error(f"Error: `{naics_path}` not found. This file is required for industry selection.")
         st.stop()
 
 @st.cache_data
@@ -89,23 +71,17 @@ if 'step' not in st.session_state:
     st.session_state.step = 'state_selection'
     st.session_state.selections = {}
 
-# Load the data for populating the menus
+# Load data for populating the menus
 selection_df = load_selection_data()
+naics_df = load_naics_data()
 
 # --- Step 1: State Selection ---
 if st.session_state.step == 'state_selection':
     st.header("Step 1: Select State(s)")
-    
     states = sorted(selection_df['state'].dropna().unique())
     state_df = pd.DataFrame({'State': states})
     state_df['Select'] = False
-    
-    # Use data_editor to create an interactive table
-    edited_df = st.data_editor(
-        state_df[['Select', 'State']],
-        hide_index=True,
-        use_container_width=True
-    )
+    edited_df = st.data_editor(state_df[['Select', 'State']], hide_index=True, use_container_width=True)
     
     if st.button("Next: Select Counties", type="primary"):
         st.session_state.selections['states'] = edited_df[edited_df['Select']]['State'].tolist()
@@ -118,17 +94,11 @@ if st.session_state.step == 'state_selection':
 # --- Step 2: County Selection ---
 elif st.session_state.step == 'county_selection':
     st.header("Step 2: Select County(ies)")
-    
     filtered_df = selection_df[selection_df['state'].isin(st.session_state.selections['states'])]
     counties = sorted(filtered_df['cty_name'].dropna().unique())
     county_df = pd.DataFrame({'County': counties})
     county_df['Select'] = False
-
-    edited_df = st.data_editor(
-        county_df[['Select', 'County']],
-        hide_index=True,
-        use_container_width=True
-    )
+    edited_df = st.data_editor(county_df[['Select', 'County']], hide_index=True, use_container_width=True)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -147,24 +117,15 @@ elif st.session_state.step == 'county_selection':
 # --- Step 3: ZIP Code Selection ---
 elif st.session_state.step == 'zip_selection':
     st.header("Step 3: Select ZIP Code(s)")
-    st.info("Coastal ZIP codes are selected by default.") # Added info box
+    st.info("Coastal ZIP codes are selected by default.")
     
     filtered_df = selection_df[selection_df['cty_name'].isin(st.session_state.selections['counties'])]
     zip_df = filtered_df[['zip', 'city', 'cty_name', 'coastalZip']].copy().dropna().drop_duplicates()
     zip_df.rename(columns={'zip': 'ZIP', 'city': 'City', 'cty_name': 'County', 'coastalZip': 'Coastal'}, inplace=True)
     zip_df['Coastal'] = zip_df['Coastal'].apply(lambda x: 'Yes' if x == 1 else 'No')
-    
-    # Set the 'Select' column to True where the 'Coastal' column is 'Yes'
     zip_df['Select'] = zip_df['Coastal'] == 'Yes'
-
-    # Sort the dataframe to show selected (coastal) zips first
     zip_df_sorted = zip_df.sort_values(by=['Select', 'ZIP'], ascending=[False, True])
-
-    edited_df = st.data_editor(
-        zip_df_sorted[['Select', 'ZIP', 'City', 'County', 'Coastal']],
-        hide_index=True,
-        use_container_width=True
-    )
+    edited_df = st.data_editor(zip_df_sorted[['Select', 'ZIP', 'City', 'County', 'Coastal']], hide_index=True, use_container_width=True)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -180,16 +141,17 @@ elif st.session_state.step == 'zip_selection':
                 st.session_state.step = 'naics_selection'
                 st.rerun()
                 
-# --- Step 4: NAICS Selection ---
+# --- Step 4: NAICS Selection (Now using external CSV) ---
 elif st.session_state.step == 'naics_selection':
     st.header("Step 4: Select Industries")
 
-    naics_list = [{'NAICS Code': code, 'Description': desc} for code, desc in NAICS_CODES.items()]
-    naics_df = pd.DataFrame(naics_list)
-    naics_df['Select'] = True # Default to all selected
+    # Prepare the dataframe from the loaded NAICS csv
+    naics_selection_df = naics_df[['naics', 'Description', 'ENOW Sector']].copy()
+    naics_selection_df['Select'] = True # Default to all selected
+    naics_selection_df.rename(columns={'naics': 'NAICS Code'}, inplace=True)
 
     edited_df = st.data_editor(
-        naics_df[['Select', 'NAICS Code', 'Description']],
+        naics_selection_df[['Select', 'NAICS Code', 'Description', 'ENOW Sector']],
         hide_index=True,
         use_container_width=True
     )
@@ -212,9 +174,7 @@ elif st.session_state.step == 'naics_selection':
 elif st.session_state.step == 'show_results':
     st.header("Final Employment Estimates")
     
-    # Retrieve all selections
     selections = st.session_state.selections
-    
     st.write("Based on your selections:")
     st.write(f"**States:** {', '.join(selections['states'])}")
     st.write(f"**Counties:** {len(selections['counties'])} selected")
@@ -235,18 +195,25 @@ elif st.session_state.step == 'show_results':
             st.info("No data available for the selected criteria.")
         else:
             summary = final_df.groupby('naics')['estimated_employment'].sum().reset_index()
-            summary['Industry Description'] = summary['naics'].map(NAICS_CODES).fillna("Unknown")
-            summary.rename(columns={'naics': 'NAICS Code', 'estimated_employment': 'Estimated Employment'}, inplace=True)
+            
+            # Merge with the NAICS data to get descriptions and sectors
+            # Ensure the 'naics' column is used for merging
+            naics_info = naics_df[['naics', 'Description', 'ENOW Sector']]
+            summary = pd.merge(summary, naics_info, on='naics', how='left')
+            
+            summary.rename(columns={
+                'naics': 'NAICS Code',
+                'estimated_employment': 'Estimated Employment'
+            }, inplace=True)
             
             st.dataframe(
-                summary[['NAICS Code', 'Industry Description', 'Estimated Employment']].style.format({'Estimated Employment': '{:,.0f}'}),
+                summary[['NAICS Code', 'Description', 'ENOW Sector', 'Estimated Employment']].style.format({'Estimated Employment': '{:,.0f}'}),
                 use_container_width=True
             )
             total_employment = summary['Estimated Employment'].sum()
             st.metric(label="Total Estimated Employment for Selection", value=f"{total_employment:,.0f}")
     
     if st.button("Start Over"):
-        # Clear the session state to reset the app
         for key in list(st.session_state.keys()):
             del st.session_state[key]
         st.rerun()
