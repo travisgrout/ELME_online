@@ -1,366 +1,242 @@
+# app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
-import folium
-from streamlit_folium import st_folium
-import geopandas as gpd
-from io import BytesIO
 
-# --- Page Configuration ---
-st.set_page_config(
-    page_title="Marine Economy Estimator",
-    page_icon="🌊",
-    layout="wide"
-)
+# --- Constants and Configuration ---
 
-# --- Caching Data Loading ---
+# NAICS codes and their descriptions as provided by the user
+NAICS_CODES = {
+    '112511': 'Finfish Farming and Fish Hatcheries', '112512': 'Shellfish Farming',
+    '112519': 'Other Aquaculture', '114111': 'Finfish Fishing',
+    '114112': 'Shellfish Fishing', '114119': 'Other Marine Fishing',
+    '424460': 'Fish and Seafood Merchant Wholesalers', '445250': 'Fish and Seafood Retailers',
+    '311710': 'Seafood Product Preparation and Packaging', '237990': 'Other Heavy and Civil Engineering Construction',
+    '483111': 'Deep Sea Freight Transportation', '483113': 'Coastal and Great Lakes Freight Transportation',
+    '483112': 'Deep Sea Passenger Transportation', '483114': 'Coastal and Great Lakes Passenger Transportation',
+    '488310': 'Port and Harbor Operations', '488320': 'Marine Cargo Handling',
+    '488330': 'Navigational Services to Shipping', '488390': 'Other Support Activities for Water Transportation',
+    '334511': 'Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing',
+    '493110': 'General Warehousing and Storage', '493120': 'Refrigerated Warehousing and Storage',
+    '493130': 'Farm Product Warehousing and Storage', '212321': 'Construction Sand and Gravel Mining',
+    '212322': 'Industrial Sand Mining', '211120': 'Crude Petroleum Extraction',
+    '211130': 'Natural Gas Extraction', '213111': 'Drilling Oil and Gas Wells',
+    '213112': 'Support Activities for Oil and Gas Operations', '541360': 'Geophysical Surveying and Mapping Services',
+    '336612': 'Boat Building', '336611': 'Ship Building and Repairing',
+    '487990': 'Scenic and Sightseeing Transportation, Other', '532284': 'Recreational Goods Rental',
+    '611620': 'Sports and Recreation Instruction', '713990': 'All Other Amusement and Recreation Industries',
+    '441222': 'Boat Dealers', '722511': 'Full-Service Restaurants',
+    '722513': 'Limited-Service Restaurants', '722514': 'Cafeterias, Grill Buffets, and Buffets',
+    '722515': 'Snack and Nonalcoholic Beverage Bars', '721110': 'Hotels (except Casino Hotels) and Motels',
+    '721191': 'Bed-and-Breakfast Inns', '713930': 'Marinas',
+    '721211': 'RV (Recreational Vehicle) Parks and Campgrounds', '487210': 'Scenic and Sightseeing Transportation, Water',
+    '339920': 'Sporting and Athletic Goods Manufacturing', '712130': 'Zoos and Botanical Gardens',
+    '712190': 'Nature Parks and Other Similar Institutions'
+}
+
+# Establishment size columns
+SIZE_COLS = [
+    "n1_4", "n5_9", "n10_19", "n20_49", "n50_99",
+    "n100_249", "n250_499", "n500_999", "n1000"
+]
+
+# Mid-points for each establishment size range for employment estimation
+EMPLOYMENT_MIDPOINTS = {
+    'n1_4': 2.5, 'n5_9': 7.0, 'n10_19': 14.5,
+    'n20_49': 34.5, 'n50_99': 74.5, 'n100_249': 174.5,
+    'n250_499': 374.5, 'n500_999': 749.5, 'n1000': 1500.0 # Assumed midpoint for 1000+
+}
+
+# --- Data Loading and Preparation ---
+
+# app.py
+
 @st.cache_data
-def load_data(year="23"):
+def load_and_prepare_data():
     """
-    Loads all necessary RAW data from txt and CSV files.
-    This function is cached to improve performance.
+    Loads, merges, and prepares the datasets for analysis from the 'Cleaned Census Inputs' folder.
+    - Loads zip-level and county-level data.
+    - Combines them into a single dataframe where county-level data is
+      identified with a special zip code of -99999.
     """
     try:
-        # Define file paths based on the year
-        zbp_detail_file = f"zbp{year}detail.txt"
-        zbp_totals_file = f"zbp{year}totals.txt"
-        cbp_state_file = f"cbp{year}st.txt"
-        enow_zips_file = f"enowZips{year}.csv"
-
-        # --- Define explicit column names for raw txt files ---
-        zbp_detail_cols = [
-            'zip', 'naics', 'est', 'n1_4', 'n5_9', 'n10_19', 'n20_49', 'n50_99', 
-            'n100_249', 'n250_499', 'n500_999', 'n1000', 'emp', 'qp1', 'ap', 
-            'emp_nf', 'qp1_nf', 'ap_nf', 'stabbr', 'cty_name', 'name'
-        ]
-        zbp_totals_cols = [
-            'zip', 'est_totals', 'emp_totals', 'qp1_totals', 'ap_totals', 
-            'emp_nf_totals', 'qp1_nf_totals', 'ap_nf_totals', 
-            'city', 'stabbr_totals', 'cty_name_totals', 'name_totals'
-        ]
-        cbp_st_cols = [
-            'fipstate', 'naics', 'lfo', 'est', 'emp', 'qp1', 'ap', 'empflag', 
-            'emp_nf', 'qp1_nf', 'ap_nf', 'n1_4', 'n5_9', 'n10_19', 'n20_49', 
-            'n50_99', 'n100_249', 'n250_499', 'n500_999', 'n1000'
-        ]
-
-        # Load raw data files, applying our own headers
-        df_zbp_detail = pd.read_csv(zbp_detail_file, dtype={'zip': str}, header=None, names=zbp_detail_cols, skiprows=1)
-        df_zbp_totals = pd.read_csv(zbp_totals_file, dtype={'zip': str}, header=None, names=zbp_totals_cols, skiprows=1)
-        df_cbp_state = pd.read_csv(cbp_state_file, header=None, names=cbp_st_cols, skiprows=1)
-        df_enow_zips = pd.read_csv(enow_zips_file, dtype={'ZIP': str})
-        
-        # --- Load reference and setup data from CSVs ---
-        df_naics_ref = pd.read_csv("ELMEtemplate.xlsx - REFERENCE_naics.csv")
-        df_setup = pd.read_csv("ELMEtemplate.xlsx - SETUP.csv", header=3)
-        df_coastal_counties = pd.read_csv("ENOW_Geo_Reference.csv")
-
-        # --- Rename columns programmatically to avoid KeyErrors ---
-        if not df_naics_ref.empty:
-            df_naics_ref.rename(columns={
-                df_naics_ref.columns[0]: 'NAICS Code',
-                df_naics_ref.columns[1]: 'NAICS Title',
-                df_naics_ref.columns[2]: 'ENOW Sector'
-            }, inplace=True)
-        
-        if not df_setup.empty:
-            df_setup.rename(columns={df_setup.columns[2]: 'NAICS Codes'}, inplace=True)
-
-        # Load geospatial data for county maps
-        county_geo = gpd.read_file("https://www2.census.gov/geo/tiger/GENZ2021/shp/cb_2021_us_county_500k.zip")
-        
-        return df_zbp_detail, df_zbp_totals, df_cbp_state, df_enow_zips, df_naics_ref, df_setup, df_coastal_counties, county_geo
-
+        # Correctly path to the CSV files inside the subfolder
+        zip_df = pd.read_csv("Cleaned Census Inputs/cleaned_zip_industries.csv", dtype={'zip': str, 'fips': str, 'naics': str})
+        county_df = pd.read_csv("Cleaned Census Inputs/cleaned_cbp_counties.csv", dtype={'fipstate': str, 'fipscty': str, 'naics': str})
     except FileNotFoundError as e:
-        st.error(f"Error: Missing data file - {e.filename}. Please make sure all required raw data files for the selected year are in the same directory as the app.")
-        return None, None, None, None, None, None, None, None
-
-def perform_employment_estimation(df_zbp_detail, df_zbp_totals, df_cbp_state, df_enow_zips, df_naics_ref, df_coastal_counties):
-    """
-    Replicates the employment estimation logic from the R Markdown script.
-    """
-    # --- 1. ZBP Data Cleaning ---
-    zbp = df_zbp_detail.copy()
-    zbp['zip'] = zbp['zip'].str.zfill(5)
-    zbp['naics'] = zbp['naics'].astype(str).str.replace('[-/]', '', regex=True)
-    zbp['naics'] = zbp['naics'].replace('------', '0')
-    
-    # Use the detail file as the main source, rename its 'stabbr' to 'state'
-    zbp = zbp.rename(columns={'stabbr': 'state'})
-    
-    # Use the totals file ONLY to map city names to zip codes
-    city_map = df_zbp_totals[['zip', 'city']].drop_duplicates()
-    city_map['zip'] = city_map['zip'].str.zfill(5)
-    zbp = pd.merge(zbp, city_map, on='zip', how='left')
-    
-    shoreline_zips_list = df_enow_zips['ZIP'].str.zfill(5).unique()
-    zbp['Coastal_Zip'] = np.where(zbp['zip'].isin(shoreline_zips_list), "YES", "NO")
-    
-    est_cols = ['n1_4', 'n5_9', 'n10_19', 'n20_49', 'n50_99', 'n100_249', 'n250_499', 'n500_999', 'n1000']
-    for col in est_cols:
-        zbp[col] = pd.to_numeric(zbp[col], errors='coerce')
-    
-    # --- 2. CBP State Data Cleaning ---
-    cbp_state = df_cbp_state[df_cbp_state['lfo'] == '-'].copy()
-    cbp_state['naics'] = cbp_state['naics'].astype(str).str.replace('[-/]', '', regex=True)
-    cbp_state['naics'] = cbp_state['naics'].replace('------', '0')
-    
-    for col in est_cols:
-        cbp_state[col] = pd.to_numeric(cbp_state[col], errors='coerce')
-
-    # --- 3. Create Establishment Size Distribution ---
-    est_dist = cbp_state.groupby('naics')[est_cols].sum(min_count=1)
-    row_sums = est_dist.sum(axis=1)
-    est_ratios = est_dist.div(row_sums.replace(0, np.nan), axis=0)
-    
-    # --- 4. Distribute Missing Establishments ---
-    zbp['est'] = pd.to_numeric(zbp['est'], errors='coerce')
-    zbp['missingEsts'] = zbp['est'] - zbp[est_cols].sum(axis=1)
-    
-    zbp = pd.merge(zbp, est_ratios.add_suffix('_ratio'), on='naics', how='left')
-    
-    for col in est_cols:
-        ratio_col = f'{col}_ratio'
-        zbp[col] = zbp[col].fillna(zbp['missingEsts'] * zbp[ratio_col])
-        
-    # --- 5. Estimate Employment ---
-    size_midpoints = {
-        'n1_4': 2.5, 'n5_9': 7.0, 'n10_19': 14.5, 'n20_49': 34.5, 'n50_99': 74.5,
-        'n100_249': 174.5, 'n250_499': 374.5, 'n500_999': 749.5, 'n1000': 1500.0
-    }
-    
-    zbp['Estimated Employment'] = 0
-    for col, midpoint in size_midpoints.items():
-        zbp['Estimated Employment'] += zbp[col].fillna(0) * midpoint
-    
-    # --- 6. Final Cleanup and Merge ---
-    zbp = zbp.rename(columns={'est': 'Establishments'})
-    
-    df_naics_ref['naics'] = df_naics_ref['NAICS Code'].astype(str)
-    zbp = pd.merge(zbp, df_naics_ref[['naics', 'NAICS Title', 'ENOW Sector']], on='naics', how='left')
-    zbp['ENOW Sector'] = zbp['ENOW Sector'].fillna('Not Covered')
-
-    zbp = zbp.rename(columns={'cty_name': 'county'})
-    if 'state' in zbp.columns:
-        # FIX: Convert column to string type before using .str accessor
-        zbp['state'] = zbp['state'].astype(str).str.strip()
-
-    final_df = zbp[['zip', 'city', 'state', 'county', 'Coastal_Zip', 'naics', 'NAICS Title', 'ENOW Sector', 'Establishments', 'Estimated Employment']].copy()
-    final_df = final_df.dropna(subset=['state', 'county'])
-
-    return final_df.round({'Estimated Employment': 0})
-
-
-# --- Helper Functions ---
-def to_excel(dfs: dict):
-    output = BytesIO()
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        for sheet_name, df in dfs.items():
-            df.to_excel(writer, sheet_name=sheet_name, index=False)
-    processed_data = output.getvalue()
-    return processed_data
-
-def reset_to_step(step_number):
-    keys_to_clear = []
-    if step_number <= 1: keys_to_clear.extend(['selected_states', 'selected_counties', 'selected_zips', 'selected_naics'])
-    if step_number <= 2: keys_to_clear.extend(['selected_counties', 'selected_zips', 'selected_naics'])
-    if step_number <= 3: keys_to_clear.extend(['selected_zips', 'selected_naics'])
-    if step_number <= 4: keys_to_clear.extend(['selected_naics'])
-    for key in keys_to_clear:
-        if key in st.session_state: del st.session_state[key]
-    st.session_state.step = step_number
-
-
-# --- Main App ---
-def main():
-    st.title("🌊 Local Marine Economy Estimator")
-    st.markdown("This tool helps you estimate the size and composition of the marine economy in your local area. Follow the steps below to generate your custom analysis.")
-    
-    year_full = st.selectbox("Select Analysis Year", ["2023", "2022"], key="year_select")
-    year_short = year_full[-2:]
-
-    with st.spinner(f"Loading and processing data for {year_full}... This may take a moment."):
-        raw_data = load_data(year=year_short)
-    
-    if any(d is None for d in raw_data):
+        st.error(f"Error loading data: {e}. Make sure the 'Cleaned Census Inputs' folder with your CSV files is in your GitHub repository.")
         st.stop()
+
+    # Prepare county data: create FIPS code and add sentinel zip value
+    county_df['fipscty'] = county_df['fipscty'].str.zfill(3)
+    county_df['fips'] = county_df['fipstate'].str.zfill(2) + county_df['fipscty']
+    county_df['zip'] = -99999 # Sentinel value to identify county total rows
+
+    # Align columns between the two dataframes for a clean merge
+    common_cols = ['fips', 'naics', 'est'] + SIZE_COLS
+    county_df_aligned = county_df.rename(columns={'ALLCoastalCounty': 'coastalCounty'}) # Align column name
     
-    df_zbp_detail, df_zbp_totals, df_cbp_state, df_enow_zips, df_naics_ref, df_setup, df_coastal_counties, county_geo = raw_data
+    # Ensure all required columns exist, adding them with null values if they don't
+    for col in common_cols + ['state', 'cty_name', 'coastalCounty', 'city']:
+        if col not in zip_df.columns: zip_df[col] = np.nan
+        if col not in county_df_aligned.columns: county_df_aligned[col] = np.nan
+
+    # Select and reorder columns to match before concatenation
+    zip_df_aligned = zip_df[common_cols + ['state', 'cty_name', 'zip', 'city', 'coastalCounty']]
+    county_df_aligned = county_df_aligned[common_cols + ['state', 'cty_name', 'zip', 'city', 'coastalCounty']]
+
+    # Combine zip and county data into one dataframe
+    combined_df = pd.concat([zip_df_aligned, county_df_aligned], ignore_index=True)
+
+    # Convert relevant columns to numeric types for calculations
+    for col in ['est'] + SIZE_COLS:
+        combined_df[col] = pd.to_numeric(combined_df[col], errors='coerce')
+
+    return combined_df
+
+# --- Core Data Processing Functions ---
+
+def distribute_establishments(group, size_cols):
+    """
+    Python translation of the R script's logic to distribute establishments.
+    This function is applied to each 'naics-fips' group.
+    """
+    county_row = group[group['zip'] == -99999]
+    zip_rows = group[group['zip'] != -99999].copy()
+
+    if county_row.empty or zip_rows.empty:
+        return group # Cannot perform distribution
+
+    county_vals = county_row[size_cols].iloc[0].fillna(0)
+    zip_sums_before = zip_rows[size_cols].sum().fillna(0)
     
-    df_details = perform_employment_estimation(df_zbp_detail, df_zbp_totals, df_cbp_state, df_enow_zips, df_naics_ref, df_coastal_counties)
+    # Calculate available establishments to distribute (capacity)
+    capacity = county_vals - zip_sums_before
+    capacity[capacity < 0] = 0
 
-    if 'step' not in st.session_state:
-        st.session_state.step = 1
+    # Iterate through zip code rows to allocate missing establishments
+    for i, row in zip_rows.iterrows():
+        if pd.isna(row['est']): continue
 
-    # --- Step 1: State Selection ---
-    if st.session_state.step >= 1:
-        st.header("Step 1: Select State(s) of Interest")
-        
-        available_states = sorted(df_details['state'].unique())
-        
-        if not available_states:
-            st.error("No state data could be loaded. Please check that the raw data files (e.g., zbp23detail.txt) are in the correct format and location.")
-            st.stop()
-        
-        if 'last_year' not in st.session_state or st.session_state.last_year != year_full:
-            st.session_state.selected_states = []
-        st.session_state.last_year = year_full
+        missing_estab = row['est'] - row[size_cols].sum()
+        if missing_estab > 0:
+            target_cols_mask = row[size_cols].fillna(0) == 0
+            target_cols = [col for col, mask in target_cols_mask.items() if mask]
 
-        selected_states = st.multiselect(
-            "Select State(s) of Interest",
-            available_states,
-            default=st.session_state.get('selected_states', []),
-            key="state_multiselect"
+            if target_cols:
+                weights = county_vals[target_cols]
+                total_weight = weights.sum()
+
+                if total_weight > 0:
+                    proportions = weights / total_weight
+                    allocations = missing_estab * proportions
+                    zip_rows.loc[i, target_cols] += allocations
+                    
+    return pd.concat([county_row, zip_rows], ignore_index=True)
+
+@st.cache_data
+def run_processing(_df):
+    """
+    Main processing pipeline: distributes establishments and estimates employment.
+    The _df parameter is prefixed with an underscore to indicate it's cached.
+    """
+    st.write("Processing Data: Distributing establishments...")
+    processed_df = _df.groupby(['naics', 'fips'], group_keys=False).apply(lambda x: distribute_establishments(x, SIZE_COLS))
+    
+    st.write("Processing Data: Estimating employment...")
+    zip_data = processed_df[processed_df['zip'] != -99999].copy()
+
+    zip_data['estimated_employment'] = 0.0
+    for col, midpoint in EMPLOYMENT_MIDPOINTS.items():
+        zip_data[col] = zip_data[col].fillna(0)
+        zip_data['estimated_employment'] += zip_data[col] * midpoint
+    
+    st.success("Processing complete.", icon="✅")
+    return zip_data
+
+# --- Streamlit User Interface ---
+
+st.set_page_config(layout="wide")
+st.title("🚢 Marine Economy Employment Estimator")
+
+# Load initial data
+initial_data = load_and_prepare_data()
+
+# --- Sidebar for User Selections ---
+st.sidebar.header("Step 1: Select Your Region")
+
+# State Selection
+available_states = sorted(initial_data['state'].dropna().unique())
+selected_states = st.sidebar.multiselect("Select State(s)", available_states)
+
+# County Selection
+if selected_states:
+    county_mask = initial_data['state'].isin(selected_states)
+    available_counties = sorted(initial_data[county_mask]['cty_name'].dropna().unique())
+    selected_counties = st.sidebar.multiselect("Select County(s)", available_counties)
+
+    # Zip Code Selection
+    if selected_counties:
+        zip_mask = (initial_data['cty_name'].isin(selected_counties)) & (initial_data['zip'] != -99999)
+        zip_options_df = initial_data[zip_mask].copy().dropna(subset=['zip', 'city', 'cty_name'])
+        
+        zip_options_df['display'] = zip_options_df.apply(
+            lambda row: f"{row['zip']} ({row['city']}) - Coastal: {'Yes' if row['coastalCounty']==1 else 'No'}",
+            axis=1
         )
-        if st.button("Next: Select Counties", type="primary"):
-            if selected_states:
-                st.session_state.selected_states = selected_states
-                st.session_state.step = 2
-                st.rerun()
+        
+        zip_options_map = pd.Series(zip_options_df['zip'].values, index=zip_options_df['display']).to_dict()
+        available_zips_display = sorted(zip_options_map.keys())
+        selected_zips_display = st.sidebar.multiselect("Select ZIP Code(s)", available_zips_display)
+        selected_zips = [zip_options_map[z] for z in selected_zips_display]
+
+# --- Industry Selection ---
+st.sidebar.header("Step 2: Select Industries")
+naics_display_list = [f"{code} - {desc}" for code, desc in NAICS_CODES.items()]
+
+selected_naics_display = st.sidebar.multiselect(
+    "Select from default NAICS codes:",
+    options=naics_display_list,
+    default=naics_display_list
+)
+selected_naics_codes = [item.split(' - ')[0] for item in selected_naics_display]
+
+custom_naics_input = st.sidebar.text_area("Add custom NAICS codes (comma-separated):")
+if custom_naics_input:
+    custom_naics = [code.strip() for code in custom_naics_input.split(',')]
+    all_selected_naics = list(set(selected_naics_codes + custom_naics))
+else:
+    all_selected_naics = selected_naics_codes
+
+# --- Main Panel for Calculation and Results ---
+
+st.header("Results")
+if st.button("Generate Employment Estimates", type="primary"):
+    if not selected_states or not selected_counties or not selected_zips or not all_selected_naics:
+        st.warning("Please select at least one State, County, ZIP Code, and Industry.")
+    else:
+        with st.spinner('Calculating... This may take a moment.'):
+            processed_data = run_processing(initial_data)
+            
+            results_mask = (processed_data['zip'].isin(selected_zips)) & (processed_data['naics'].isin(all_selected_naics))
+            final_df = processed_data[results_mask]
+
+            if final_df.empty:
+                st.info("No data available for the selected criteria.")
             else:
-                st.warning("Please select at least one state.")
+                employment_summary = final_df.groupby('naics')['estimated_employment'].sum().reset_index()
+                employment_summary['industry_description'] = employment_summary['naics'].map(NAICS_CODES).fillna("Custom or Unknown NAICS")
+                
+                employment_summary = employment_summary.rename(columns={
+                    'naics': 'NAICS Code',
+                    'estimated_employment': 'Estimated Employment',
+                    'industry_description': 'Industry Description'
+                })
+                
+                employment_summary = employment_summary[['NAICS Code', 'Industry Description', 'Estimated Employment']]
+                
+                st.subheader("Total Estimated Employment by Industry")
+                st.dataframe(employment_summary.style.format({'Estimated Employment': '{:,.0f}'}), use_container_width=True)
 
-    # --- Step 2: County Selection ---
-    if st.session_state.step >= 2:
-        st.header("Step 2: Select Counties of Interest")
-        filtered_by_state = df_details[df_details['state'].isin(st.session_state.selected_states)]
-        available_counties = sorted(filtered_by_state['county'].unique())
-        selected_counties = st.multiselect(
-            "Select Counties",
-            available_counties,
-            default=st.session_state.get('selected_counties', []),
-            key="county_multiselect"
-        )
-
-        st.subheader("Map of Selected State(s)")
-        with st.spinner("Generating map..."):
-            map_data = county_geo[county_geo['STATE_NAME'].isin([s.upper() for s in st.session_state.selected_states])]
-            if not map_data.empty:
-                map_center = [map_data.unary_union.centroid.y, map_data.unary_union.centroid.x]
-                m = folium.Map(location=map_center, zoom_start=6)
-                folium.GeoJson(
-                    map_data,
-                    style_function=lambda feature: {
-                        'fillColor': '#228B22' if feature['properties']['NAME'].upper() in [c.upper() for c in selected_counties] else '#D3D3D3',
-                        'color': 'black', 'weight': 1,
-                        'fillOpacity': 0.6 if feature['properties']['NAME'].upper() in [c.upper() for c in selected_counties] else 0.2,
-                    },
-                    tooltip=folium.GeoJsonTooltip(fields=['NAME'], aliases=['County:'])
-                ).add_to(m)
-                st_folium(m, use_container_width=True, height=500)
-            else:
-                st.info("Could not generate map. Geospatial data not found for selected states.")
-
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Back to State Selection"): reset_to_step(1); st.rerun()
-        with col2:
-            if st.button("Next: Select Zip Codes", type="primary"):
-                if selected_counties:
-                    st.session_state.selected_counties = selected_counties
-                    st.session_state.step = 3
-                    st.rerun()
-                else:
-                    st.warning("Please select at least one county.")
-
-    # --- Step 3: Zip Code Selection ---
-    if st.session_state.step >= 3:
-        st.header("Step 3: Select Zip Codes of Interest")
-        filtered_by_county = df_details[df_details['county'].isin(st.session_state.selected_counties)]
-        zip_options = filtered_by_county[['zip', 'city', 'county', 'Coastal_Zip']].drop_duplicates().sort_values(by=['county', 'zip'])
-        st.info("The table below shows all available zip codes in your selected counties.")
-        selected_zips = st.multiselect(
-            "Select Zip Codes",
-            options=zip_options['zip'].tolist(),
-            default=st.session_state.get('selected_zips', zip_options['zip'].tolist()),
-            key="zip_multiselect"
-        )
-        st.dataframe(zip_options, use_container_width=True)
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Back to County Selection"): reset_to_step(2); st.rerun()
-        with col2:
-            if st.button("Next: Customize Industries", type="primary"):
-                if selected_zips:
-                    st.session_state.selected_zips = selected_zips
-                    st.session_state.step = 4
-                    st.rerun()
-                else:
-                    st.warning("Please select at least one zip code.")
-
-    # --- Step 4: NAICS Code Customization ---
-    if st.session_state.step >= 4:
-        st.header("Step 4: Customize Industries (NAICS Codes)")
-        default_naics_list = df_setup['NAICS Codes'].dropna().astype(str).tolist()
-        col1, col2 = st.columns(2)
-        with col1:
-            st.subheader("Your NAICS List")
-            naics_input = st.text_area(
-                "NAICS Codes for Analysis",
-                value="\n".join(st.session_state.get('selected_naics', default_naics_list)),
-                height=300
-            )
-            selected_naics = [code.strip() for code in naics_input.split('\n') if code.strip()]
-        with col2:
-            st.subheader("Reference: NAICS Sectors")
-            st.dataframe(df_naics_ref, height=300, use_container_width=True)
-        col_back, col_generate = st.columns(2)
-        with col_back:
-            if st.button("Back to Zip Code Selection"): reset_to_step(3); st.rerun()
-        with col_generate:
-            if st.button("Generate Analysis", type="primary"):
-                if selected_naics:
-                    st.session_state.selected_naics = selected_naics
-                    st.session_state.step = 5
-                    st.rerun()
-                else:
-                    st.warning("Please provide at least one NAICS code.")
-
-    # --- Step 5: Results ---
-    if st.session_state.step >= 5:
-        st.header("📈 Analysis Results")
-        final_selection = df_details[
-            (df_details['zip'].isin(st.session_state.selected_zips)) &
-            (df_details['naics'].isin(st.session_state.selected_naics))
-        ].copy()
-        
-        if final_selection.empty:
-            st.warning("No data found for the selected criteria. Please go back and adjust your selections.")
-        else:
-            metrics = ['Establishments', 'Estimated Employment']
-            table1 = final_selection.groupby(['zip', 'city', 'county'])[metrics].sum().reset_index()
-            table2 = final_selection.groupby('county')[metrics].sum().reset_index()
-            table3 = final_selection.groupby(['naics', 'NAICS Title', 'ENOW Sector'])[metrics].sum().reset_index()
-            table4_est = pd.pivot_table(final_selection, values='Establishments', index='county', columns='ENOW Sector', aggfunc='sum', fill_value=0)
-            table4_emp = pd.pivot_table(final_selection, values='Estimated Employment', index='county', columns='ENOW Sector', aggfunc='sum', fill_value=0)
-            table5_est = pd.pivot_table(final_selection, values='Establishments', index=['zip', 'city', 'county'], columns='ENOW Sector', aggfunc='sum', fill_value=0)
-            table5_emp = pd.pivot_table(final_selection, values='Estimated Employment', index=['zip', 'city', 'county'], columns='ENOW Sector', aggfunc='sum', fill_value=0)
-
-            st.subheader("Table 1: Marine Economy Summary by Zip Code")
-            st.dataframe(table1, use_container_width=True)
-            st.subheader("Table 2: Marine Economy Summary by County")
-            st.dataframe(table2, use_container_width=True)
-            st.subheader("Table 3: Marine Economy Summary by Industry (NAICS)")
-            st.dataframe(table3, use_container_width=True)
-            st.subheader("Table 4: Detailed Industry Composition by County")
-            st.markdown("Establishments:"); st.dataframe(table4_est, use_container_width=True)
-            st.markdown("Estimated Employment:"); st.dataframe(table4_emp, use_container_width=True)
-            st.subheader("Table 5: Detailed Industry Composition by Zip Code")
-            st.markdown("Establishments:"); st.dataframe(table5_est, use_container_width=True)
-            st.markdown("Estimated Employment:"); st.dataframe(table5_emp, use_container_width=True)
-
-            excel_data = to_excel({
-                "Table1_by_Zip": table1, "Table2_by_County": table2, "Table3_by_NAICS": table3,
-                "Table4_County_Est": table4_est, "Table4_County_Emp": table4_emp,
-                "Table5_Zip_Est": table5_est, "Table5_Zip_Emp": table5_emp
-            })
-            st.download_button(
-                label="📥 Download All Tables as Excel", data=excel_data,
-                file_name="marine_economy_analysis.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
-
-        if st.button("Start Over"): reset_to_step(1); st.rerun()
-
-if __name__ == "__main__":
-    main()
+                total_employment = employment_summary['Estimated Employment'].sum()
+                st.metric(label="Total Estimated Employment for Selection", value=f"{total_employment:,.0f}")
